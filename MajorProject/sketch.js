@@ -1,30 +1,37 @@
-// First Demo
-// Your Name
-// Date
+// Major Project
+// Vrajesh Patel 
+// September 28/2021
 //
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
+
+//  Global Variables and Arrays
 let state = "grid";
-let size = 50;
+let sizeOfSquare = 60;
 let slot = "notHit";
+let column = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 
 function setup() {
-  createCanvas(size * 11, size * 11);
+  createCanvas(windowWidth, windowHeight);
 }
 function drawGrid() {
-  for (let gridX = 0; gridX < width; gridX += size) {
-    for (let gridY = 0; gridY < height; gridY += size) {
+  for (let gridX = 0; gridX < sizeOfSquare * 10; gridX += sizeOfSquare) {
+    for (let gridY = 0; gridY < sizeOfSquare * 10; gridY += sizeOfSquare) {
       if (slot === "notHit") {
         fill(255);
       }
-      rect(gridX + size, gridY + size, size, size);
+      rect(gridX + sizeOfSquare, gridY + sizeOfSquare, sizeOfSquare, sizeOfSquare);
     }
   }
 }
 function drawNumber() {
-  for (number = 1; number <= 10; number++) {
-    //     ADD STUFF HERE LATER
+  for (let i = 0; i < column.length; i++) {
+    textSize(30);
+    textAlign(CENTER);
+    fill(0);
+    text(column[i], 25, i * 60 + 100);
+
   }
 }
 

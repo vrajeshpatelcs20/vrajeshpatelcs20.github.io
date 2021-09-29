@@ -25,20 +25,20 @@ function drawGrid() {
     }
   }
 }
-function drawNumber() {
+function drawNumbersAndLetters() {
   for (let i = 0; i < column.length; i++) {
     textSize(30);
     textAlign(CENTER);
     fill(0);
     text(column[i], 25, i * 60 + 100);
-
+    text(i + 1, i * 60 + 90, 40);
   }
 }
 
 function draw() {
   background("white");
   if (state === "grid") {
-    drawNumber();
+    drawNumbersAndLetters();
     drawGrid();
   }
 }

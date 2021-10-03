@@ -1,9 +1,9 @@
-// First Demo
-// Your Name
-// Date
+// Interactive Scene
+//Vrajesh Patel
+// October 3 2021
 //
 // Extra for Experts:
-// - describe what you did to take this project "above and beyond"
+// can resize screen and game will adjust acorrdingly
 
 
 
@@ -24,16 +24,23 @@ let snakeYCordinate = [];
 let appleXCordinate = 0;
 let appleYCordinate = 0;
 let scoreElem;
+let r = 255;
+let g = 255;
+let b = 255;
+let snakeAndApple = True;
+
+
+
+
 
 function setup() {
   scoreElem = createDiv('Score = 0');
   scoreElem.position(20, 20);
-  scoreElem.id = 'score';
   scoreElem.style('color', 'white');
 
   createCanvas(windowWidth, windowHeight);
   frameRate(15);
-  stroke(255); // change color from here
+  stroke(r, g, b);
   strokeWeight(10);
   updateappleCoordinates();
 
@@ -82,8 +89,8 @@ function checkGameStatus() {
     checkSnakeCollision()
   ) {
     noLoop();
-    let scoreVal = parseInt(scoreElem.html().substring(8));
-    scoreElem.html('Game ended! Your score was : ' + scoreVal);
+    let ScoreCounter = parseInt(scoreElem.html().substring(8));
+    scoreElem.html('Game ended! Your score was : ' + ScoreCounter);
   }
 }
 
@@ -140,6 +147,24 @@ function keyPressed() {
       break;
   }
 }
+// color changer
+function changeColorOfObjectSpecified() {
+  if (mouseIsPressed) {
+    r = random(0, 255);
+    g = random(0, 255);
+    b = random(0, 255);
+    stroke(r, g, b);
+  }
+}
+
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
+
+
+
+
 
 // main
 function draw() {
@@ -150,4 +175,6 @@ function draw() {
   updateSnakeCoordinates();
   checkGameStatus();
   checkForapple();
+  changeColorOfObjectSpecified();
+
 }

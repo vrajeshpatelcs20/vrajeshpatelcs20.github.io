@@ -1,9 +1,10 @@
 // Interactive Scene
-//Vrajesh Patel
+// Vrajesh Patel
 // October 3 2021
 //
 // Extra for Experts:
 // can resize screen and game will adjust acorrdingly
+// figured out how to implent a score board
 
 //  HOW TO PLAY  
 //  WASD control to move/turn Snake
@@ -12,8 +13,8 @@
 
 
 
-// global variables
-let numSegments = 5;
+// global variables to make the snake longer from the begining make the numSegments bigger
+let numSegments = 100;
 let direction = "right";
 
 

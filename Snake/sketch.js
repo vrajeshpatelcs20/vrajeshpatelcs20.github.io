@@ -36,22 +36,6 @@ let backR = 0;
 let backB = 0;
 let backG = 0;
 
-function setup() {
-  scoreElem = createDiv("Score = 0");
-  scoreElem.position(20, 20);
-  scoreElem.style("color", "white");
-
-  createCanvas(windowWidth, windowHeight);
-  frameRate(15);
-  stroke(r, g, b);
-  strokeWeight(10);
-  updateappleCoordinates();
-
-  for (let i = 0; i < numSegments; i++) {
-    snakeXCordinate.push(xStart + i * spaceBetweenCircles);
-    snakeYCordinate.push(yStart);
-  }
-}
 // update/change the direction of the snake
 function updateSnakeCoordinates() {
   for (let i = 0; i < numSegments - 1; i++) {
@@ -158,12 +142,28 @@ function changeColorOfObjectSpecified() {
     stroke(r, g, b);
   }
 }
+function setup() {
+  scoreElem = createDiv("Score = 0");
+  scoreElem.position(20, 20);
+  scoreElem.style("color", "white");
+
+  createCanvas(windowWidth, windowHeight);
+  frameRate(15);
+  stroke(r, g, b);
+  strokeWeight(10);
+  updateappleCoordinates();
+
+  for (let i = 0; i < numSegments; i++) {
+    snakeXCordinate.push(xStart + i * spaceBetweenCircles);
+    snakeYCordinate.push(yStart);
+  }
+}
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
 // main
 function draw() {
-  background(backR, backG,backB);
+  background(backR, backG, backB);
   for (let i = 0; i < numSegments - 1; i++) {
     line(snakeXCordinate[i], snakeYCordinate[i], snakeXCordinate[i + 1], snakeYCordinate[i + 1]);
   }

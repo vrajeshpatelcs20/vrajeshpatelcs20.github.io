@@ -14,7 +14,7 @@
 
 
 // global variables to make the snake longer from the begining make the numSegments bigger
-let numSegments = 100;
+let numSegments = 10;
 let direction = "right";
 
 

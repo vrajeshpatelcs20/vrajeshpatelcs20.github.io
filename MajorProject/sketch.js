@@ -35,10 +35,18 @@ function drawNumbersAndLetters() {
   }
 }
 
+function mousePressed() {
+  fill("red");
+  rect(mouseX, mouseY, sizeOfSquare, sizeOfSquare);
+}
+
+
+
 function draw() {
   background("white");
   if (state === "grid") {
     drawNumbersAndLetters();
     drawGrid();
+
   }
 }

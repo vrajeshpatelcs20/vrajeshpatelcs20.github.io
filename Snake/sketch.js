@@ -5,6 +5,11 @@
 // Extra for Experts:
 // can resize screen and game will adjust acorrdingly
 
+//  HOW TO PLAY  
+//  WASD control to move/turn Snake
+//  Left Click Mouse to change color of Snake and mouse
+//  Press Q to change color of Background
+
 
 
 // global variables
@@ -27,10 +32,9 @@ let scoreElem;
 let r = 255;
 let g = 255;
 let b = 255;
-
-
-
-
+let backR = 0;
+let backB = 0;
+let backG = 0;
 
 function setup() {
   scoreElem = createDiv("Score = 0");
@@ -48,8 +52,6 @@ function setup() {
     snakeYCordinate.push(yStart);
   }
 }
-
-
 // update/change the direction of the snake
 function updateSnakeCoordinates() {
   for (let i = 0; i < numSegments - 1; i++) {
@@ -77,7 +79,6 @@ function updateSnakeCoordinates() {
 
   }
 }
-
 // check to see if snake is out of bounds or not
 function checkGameStatus() {
   if (
@@ -92,7 +93,6 @@ function checkGameStatus() {
     scoreElem.html("Game ended! Your score was : " + ScoreCounter);
   }
 }
-
 // checker to see if the snake hits the snake
 function checkSnakeCollision() {
   let snakeHeadX = snakeXCordinate[snakeXCordinate.length - 1];
@@ -103,7 +103,6 @@ function checkSnakeCollision() {
     }
   }
 }
-
 // checker to see if the apple is consumed or not
 function checkForapple() {
   point(appleXCordinate, appleYCordinate);
@@ -144,6 +143,10 @@ function keyPressed() {
       direction = "down";
     }
     break;
+  case 81:
+    backR = random(255);
+    backB = random(255);
+    backG = random(255);
   }
 }
 // color changer
@@ -155,19 +158,12 @@ function changeColorOfObjectSpecified() {
     stroke(r, g, b);
   }
 }
-
-
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
-
-
-
-
-
 // main
 function draw() {
-  background(0);
+  background(backR, backG,backB);
   for (let i = 0; i < numSegments - 1; i++) {
     line(snakeXCordinate[i], snakeYCordinate[i], snakeXCordinate[i + 1], snakeYCordinate[i + 1]);
   }

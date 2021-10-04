@@ -9,7 +9,7 @@
 
 // global variables
 let numSegments = 5;
-let direction = 'right';
+let direction = "right";
 
 
 
@@ -27,16 +27,15 @@ let scoreElem;
 let r = 255;
 let g = 255;
 let b = 255;
-let snakeAndApple = True;
 
 
 
 
 
 function setup() {
-  scoreElem = createDiv('Score = 0');
+  scoreElem = createDiv("Score = 0");
   scoreElem.position(20, 20);
-  scoreElem.style('color', 'white');
+  scoreElem.style("color", "white");
 
   createCanvas(windowWidth, windowHeight);
   frameRate(15);
@@ -90,7 +89,7 @@ function checkGameStatus() {
   ) {
     noLoop();
     let ScoreCounter = parseInt(scoreElem.html().substring(8));
-    scoreElem.html('Game ended! Your score was : ' + ScoreCounter);
+    scoreElem.html("Game ended! Your score was : " + ScoreCounter);
   }
 }
 
@@ -110,7 +109,7 @@ function checkForapple() {
   point(appleXCordinate, appleYCordinate);
   if (snakeXCordinate[snakeXCordinate.length - 1] === appleXCordinate && snakeYCordinate[snakeYCordinate.length - 1] === appleYCordinate) {
     let prevScore = parseInt(scoreElem.html().substring(8));
-    scoreElem.html('Score = ' + (prevScore + 1));
+    scoreElem.html("Score = " + (prevScore + 1));
     snakeXCordinate.unshift(snakeXCordinate[0]);
     snakeYCordinate.unshift(snakeYCordinate[0]);
     numSegments++;
@@ -125,26 +124,26 @@ function updateappleCoordinates() {
 // keyboard functions
 function keyPressed() {
   switch (keyCode) {
-    case 65:
-      if (direction !== 'right') {
-        direction = 'left';
-      }
-      break;
-    case 68:
-      if (direction !== 'left') {
-        direction = 'right';
-      }
-      break;
-    case 87:
-      if (direction !== 'down') {
-        direction = 'up';
-      }
-      break;
-    case 83:
-      if (direction !== 'up') {
-        direction = 'down';
-      }
-      break;
+  case 65:
+    if (direction !== "right") {
+      direction = "left";
+    }
+    break;
+  case 68:
+    if (direction !== "left") {
+      direction = "right";
+    }
+    break;
+  case 87:
+    if (direction !== "down") {
+      direction = "up";
+    }
+    break;
+  case 83:
+    if (direction !== "up") {
+      direction = "down";
+    }
+    break;
   }
 }
 // color changer

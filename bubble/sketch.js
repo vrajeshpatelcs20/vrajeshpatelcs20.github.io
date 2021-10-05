@@ -32,7 +32,7 @@ function displayBubble() {
   }
 }
 function mousePressed() {
-  for (let i = 1; i < 10000; i++) {
+  for (let i = 1; i < 100000000; i++) {
     spawnBubble();
 
   }

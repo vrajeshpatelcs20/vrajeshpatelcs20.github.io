@@ -16,7 +16,7 @@ function draw() {
     noStroke();
     fill(myBall.theColor);
     myBall.x = noise(myBall.time) * width;
-    myBall.time += 0.007;
+    myBall.time += 0.07;
     myBall.y = noise(myBall.time + 100) * height;
     circle(myBall.x, myBall.y, myBall.radius * 2);
   }

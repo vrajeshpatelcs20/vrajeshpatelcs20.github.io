@@ -6,7 +6,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
 }
 function mousePressed() {
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 10; i++) {
     spawnBall();
   }
 }
@@ -16,7 +16,7 @@ function draw() {
     noStroke();
     fill(myBall.theColor);
     myBall.x = noise(myBall.time) * width;
-    myBall.time += 0.003;
+    myBall.time += 0.0003;
     myBall.y = noise(myBall.time + 100) * height;
     circle(myBall.x, myBall.y, myBall.radius * 2);
   }

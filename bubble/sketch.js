@@ -51,9 +51,9 @@ function spawnBubble() {
     radius: random(10, 70),
     dx: 0,
     dy: -3,
-    theColor: color(random(255), random(255), random(255), random(255)),
-    theTime: 100,
-    // theTime: random(1000),
+    theColor: color(random(255), random(255), random(255)),
+    // theTime: 100,
+    theTime: random(1000),
   };
   theBubbles.push(bubble);
 

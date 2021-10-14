@@ -12,21 +12,15 @@
 //  Press Q to change color of Background
 
 
-
 // global variables to make the snake longer from the begining make the numSegments bigger
 let numSegments = 10;
 let direction = "right";
-
-
-
 // stater cordinates and spacer
 let xStart = 0;
 let yStart = 250;
 let spaceBetweenCircles = 10;
-
 let snakeXCordinate = [];
 let snakeYCordinate = [];
-
 let appleXCordinate = 0;
 let appleYCordinate = 0;
 let scoreElem;
@@ -36,7 +30,6 @@ let b = 255;
 let backR = 0;
 let backB = 0;
 let backG = 0;
-
 // update/change the direction of the snake
 function updateSnakeCoordinates() {
   for (let i = 0; i < numSegments - 1; i++) {
@@ -137,9 +130,9 @@ function keyPressed() {
 // color changer
 function changeColorOfObjectSpecified() {
   if (mouseIsPressed) {
-    r = random(0, 255);
-    g = random(0, 255);
-    b = random(0, 255);
+    r = random(255);
+    g = random(255);
+    b = random(255);
     stroke(r, g, b);
   }
 }
@@ -147,13 +140,11 @@ function setup() {
   scoreElem = createDiv("Score = 0");
   scoreElem.position(20, 20);
   scoreElem.style("color", "white");
-
   createCanvas(windowWidth, windowHeight);
   frameRate(15);
   stroke(r, g, b);
   strokeWeight(10);
   updateappleCoordinates();
-
   for (let i = 0; i < numSegments; i++) {
     snakeXCordinate.push(xStart + i * spaceBetweenCircles);
     snakeYCordinate.push(yStart);
@@ -172,5 +163,4 @@ function draw() {
   checkGameStatus();
   checkForapple();
   changeColorOfObjectSpecified();
-
 }

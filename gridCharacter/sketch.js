@@ -33,6 +33,20 @@ function keyPressed() {
     grid = createRandom2DArray(gridSize, gridSize);
     stroke(random(255), random(255), random(255));
   }
+  if (key === "s") {
+    tryToMoveTo(playerX, playerY + 1);
+  }
+}
+
+function tryToMoveTo(newX, newY) {
+  // reset current player spot to 0/empty  
+  grid[playerY][playerX] = 0;
+  playerX = newX;
+  playerY = newY;
+  grid[playerY][playerX] = 9;
+
+
+
 }
 function mousePressed() {
   let cellX = Math.floor(mouseX / cellWidth);

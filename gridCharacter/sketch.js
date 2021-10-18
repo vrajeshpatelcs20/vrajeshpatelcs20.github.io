@@ -36,17 +36,28 @@ function keyPressed() {
   if (key === "s") {
     tryToMoveTo(playerX, playerY + 1);
   }
+  else if (key === "w") {
+    tryToMoveTo(playerX, playerY - 1);
+  }
+  else if (key === "a") {
+    tryToMoveTo(playerX - 1, playerY);
+  }
+  else if (key === "d") {
+    tryToMoveTo(playerX + 1, playerY);
+  }
+
 }
 
 function tryToMoveTo(newX, newY) {
-  // reset current player spot to 0/empty  
-  grid[playerY][playerX] = 0;
-  playerX = newX;
-  playerY = newY;
-  grid[playerY][playerX] = 9;
-
-
-
+  if (newX >= 0 && newY >= 0 && newX < gridSize && newY < gridSize){
+    if (grid[newY][newX] === 0) {
+      // reset current player spot to 0/empty  
+      grid[playerY][playerX] = 0;
+      playerX = newX;
+      playerY = newY;
+      grid[playerY][playerX] = 9;
+    }
+  }
 }
 function mousePressed() {
   let cellX = Math.floor(mouseX / cellWidth);

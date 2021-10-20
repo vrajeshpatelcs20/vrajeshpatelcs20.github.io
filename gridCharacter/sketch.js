@@ -4,20 +4,16 @@ let grid;
 let gridSize = 20;
 let cellWidth, cellHeight;
 let level1;
-
 let playerX = 0;
 let playerY = 0;
-
-
 function preload() {
   level1 = loadJSON("assets/level1.json"); //assumes gridsize = 20
 }
-
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(windowWidth * 0.8, windowHeight * 0.8);
   grid = level1;
-  cellWidth = width / gridSize;
-  cellHeight = height / gridSize;
+  cellWidth = (width - 1) / gridSize;
+  cellHeight = (height - 1) / gridSize;
   // put player in grid
   grid[playerY][playerX] = 9;
 }
@@ -45,11 +41,9 @@ function keyPressed() {
   else if (key === "d") {
     tryToMoveTo(playerX + 1, playerY);
   }
-
 }
-
 function tryToMoveTo(newX, newY) {
-  if (newX >= 0 && newY >= 0 && newX < gridSize && newY < gridSize){
+  if (newX >= 0 && newY >= 0 && newX < gridSize && newY < gridSize) {
     if (grid[newY][newX] === 0) {
       // reset current player spot to 0/empty  
       grid[playerY][playerX] = 0;

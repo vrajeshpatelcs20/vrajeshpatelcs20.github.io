@@ -11,13 +11,9 @@ let initailGrid = [
   [0, 6, 0, 0, 5, 1, 0, 0, 2],
   [3, 0, 0, 4, 0, 0, 5, 0, 8],
 ];
-
 let gridDimensions = 9;
 let cellSize;
 let grid;
-
-
-
 
 function setup() {
   if (windowWidth < windowHeight) {
@@ -26,16 +22,13 @@ function setup() {
   else {
     createCanvas(windowHeight * 0.8, windowHeight * 0.8);
   }
-  cellSize = (width - 2) / gridDimensions;
+  cellSize = (width - 4) / gridDimensions;
   grid = initailGrid;
 }
-
 function draw() {
   // background(255, 0, 255);
   displayGrid();
 }
-
-
 function displayGrid() {
   for (let y = 0; y < gridDimensions; y++) {
     for (let x = 0; x < gridDimensions; x++) {
@@ -56,9 +49,8 @@ function displayGrid() {
   }
   drawCageLines();
 }
-
 function drawCageLines() {
-  strokeWeight(3);
+  strokeWeight(6);
   for (let i = 0; i <= 9; i += 3) {
     line(0, cellSize * i, width, cellSize * i);
     line(cellSize * i, 0, cellSize * i, height);

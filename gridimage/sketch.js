@@ -1,6 +1,6 @@
 // Grid Images Demo
 
-let gridSize = 20;
+let gridSize = 10;
 let grid;
 let clickSound;
 let grassImg;
@@ -48,7 +48,7 @@ function displayGrid() {
       }
       else if (grid[y][x] === 1) {
         image(leafImg, x * cellWidth, y * cellHeight, cellWidth, cellHeight);
-      }     
+      }
     }
   }
 }

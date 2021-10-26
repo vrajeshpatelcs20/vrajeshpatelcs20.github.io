@@ -128,7 +128,7 @@ function createRandom2DArray(rows, cols) {
   for (let y=0; y<rows; y++) {
     board.push([]);
     for (let x=0; x<cols; x++) {
-      if (random(100) < 40) {
+      if (random(100) < 80) {
         board[y].push(0);
       }
       else {

@@ -1,6 +1,6 @@
 // Grid Images Demo
 
-let gridSize = 10;
+let gridSize = 16;
 let grid;
 let clickSound;
 let grassImg;
@@ -14,7 +14,7 @@ function preload() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  grid = createRandom2DArray(gridSize, gridSize);
+  grid = createEmpty2DArray(gridSize, gridSize);
 }
 function draw() {
   background(255);
@@ -53,11 +53,20 @@ function displayGrid() {
   }
 }
 function createEmpty2DArray(rows, cols) {
+  let number = true;
   let grid = [];
   for (let y = 0; y < rows; y++) {
     grid.push([]);
+    number = !number;
     for (let x = 0; x < cols; x++) {
-      grid[y].push(0);
+      if (number){
+        grid[y].push(0);
+        number = !number;
+      }
+      else{
+        grid[y].push(1);
+        number = !number;
+      }
     }
   }
   return grid;

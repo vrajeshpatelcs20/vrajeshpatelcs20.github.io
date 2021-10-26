@@ -52,11 +52,11 @@ function swap(x, y) {
   if (x >= 0 && x < gridSize && y >= 0 && y < gridSize) {
     if (grid[y][x] === 1) {
       grid[y][x] = 0;
-      stroke(random(255), random(255), random(255));
+      // stroke(random(255), random(255), random(255));
     }
     else if (grid[y][x] === 0) {
       grid[y][x] = 1;
-      stroke(random(255), random(255), random(255));
+      // stroke(random(255), random(255), random(255));
     }
   }
 }

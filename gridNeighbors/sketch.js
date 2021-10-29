@@ -38,6 +38,7 @@ function mousePressed() {
 
   let cellX = Math.floor(mouseX / cellWidth);
   let cellY = Math.floor(mouseY / cellHeight);
+  let g
 
   swap(cellX, cellY);
   swap(cellX + 1, cellY);

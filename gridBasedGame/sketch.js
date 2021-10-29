@@ -1,36 +1,54 @@
-// Grid Images Demo
+// Grid Demo
 
-let gridSize = 16;
+let gridSize = 20;
 let grid;
-let clickSound;
 
-function preload() {
-  clickSound = loadSound("assets/bruh.mp3");
-}
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  grid = createEmpty2DArray(gridSize, gridSize);
+  grid = createRandom2DArray(gridSize, gridSize);
 }
 function draw() {
   background(255);
   displayGrid();
 }
-function mousePressed() {
-  // clickSound.play();
 
+// 0 = white
+function keyPressed() {
+  if (key === "e") {
+    grid = createEmpty2DArray(gridSize, gridSize);
+  }
+  if (key === "b") {
+    grid = createEmpty2DArray(gridSize, gridSize, 1);
+  }
+  if (key === "r") {
+    grid = createRandom2DArray(gridSize, gridSize);
+  }
+
+}
+function mousePressed() {
   let cellWidth = width / gridSize;
   let cellHeight = height / gridSize;
 
   let cellX = Math.floor(mouseX / cellWidth);
   let cellY = Math.floor(mouseY / cellHeight);
 
-  if (grid[cellY][cellX] === 1) {
-    grid[cellY][cellX] = 0;
-    // stroke(random(255), random(255), random(255));
-  }
-  else if (grid[cellY][cellX] === 0) {
-    grid[cellY][cellX] = 1;
-    // stroke(random(255), random(255), random(255));
+  swap(cellX, cellY);
+
+
+
+}
+
+function swap(x, y) {
+  if (x >= 0 && x < gridSize && y >= 0 && y < gridSize) {
+    if (grid[y][x] === 1) {
+      grid[y][x] = 3;
+      // stroke(random(255), random(255), random(255));
+    }
+    else if (grid[y][x] === 0) {
+      grid[y][x] = 3;
+      // stroke(random(255), random(255), random(255));
+    }
   }
 }
 
@@ -45,26 +63,25 @@ function displayGrid() {
       else if (grid[y][x] === 1) {
         fill("black");
       }
+      else if (grid[y][x]){
+        fill("red");
+      }
+      // noStroke();
+      rect(x * cellWidth, y * cellHeight, cellWidth, cellHeight);
     }
   }
 }
-function createEmpty2DArray(rows, cols) {
-  let number = true;
+function createEmpty2DArray(rows, cols, numToFill = 0) {
   let grid = [];
   for (let y = 0; y < rows; y++) {
     grid.push([]);
-    number = !number;
     for (let x = 0; x < cols; x++) {
-      if (number){
-        grid[y].push(0);
-        number = !number;
-      }
-      else{
-        grid[y].push(1);
-        number = !number;
-      }
+      grid[y].push(numToFill);
     }
   }
+
+
+
   return grid;
 } function createRandom2DArray(rows, cols) {
   let grid = [];

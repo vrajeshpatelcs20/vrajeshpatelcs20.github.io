@@ -21,10 +21,20 @@ function setup() {
 }
 
 function mousePressed() {
-  clickSouund.play();
-  for (let i = 0; i < 50; i++) {
-    let theBall = new Ball(mouseX, mouseY, faceImg);
-    ballArray.push(theBall);
+  for(let i = ballArray.length - 1; i >= 0; i--){
+    if(ballArray[i].isPointInBall(mouseX,mouseY)){
+      ballArray.splice(i,1);
+    }
+  }
+}
+
+
+function keyPressed(){
+  if(key === " "){
+    for (let i = 0; i < 1000; i++) {
+      let theBall = new Ball(mouseX, mouseY, faceImg);
+      ballArray.push(theBall);
+    }
   }
 }
 
@@ -43,7 +53,7 @@ function draw() {
 
 class Ball {
   constructor(x, y, theImage) {
-    this.radius = random(20, 50);
+    this.radius = random(50, 70);
     this.x = x;
     this.y = y;
     this.dx = random(-5, 5);
@@ -62,14 +72,23 @@ class Ball {
   }
 
   move() {
+    this.x += this.dx;
+    this.y += this.dy;
     if (this.x < 0 + this.radius || this.x > width - this.radius) {
       this.dx = -this.dx;
     }
     if (this.y < 0 + this.radius || this.y > height - this.radius) {
       this.dy = -this.dy;
     }
-    this.x += this.dx;
-    this.y += this.dy;
   }
+  isPointInBall(x,y){
+    if (dist(x,y,this.x,this.y) < this.radius){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
 
 }

@@ -4,12 +4,10 @@ let ballArray = [];
 let faceImg;
 let clickSouund;
 
-
 function preload() {
   faceImg = loadImage("assets/face.png");
   clickSouund = loadSound("assets/bruh.mp3");
 }
-
 function setup() {
   createCanvas(windowWidth, windowHeight);
   for (let i = 0; i < 0; i++) {
@@ -19,7 +17,6 @@ function setup() {
     ballArray.push(theBall);
   }
 }
-
 function mousePressed() {
   for(let i = ballArray.length - 1; i >= 0; i--){
     if(ballArray[i].isPointInBall(mouseX,mouseY)){
@@ -27,8 +24,6 @@ function mousePressed() {
     }
   }
 }
-
-
 function keyPressed(){
   if(key === " "){
     for (let i = 0; i < 1000; i++) {
@@ -37,20 +32,17 @@ function keyPressed(){
     }
   }
 }
-
 function draw() {
   background(0);
   for (let i = 0; i < ballArray.length; i++) {
     ballArray[i].move();
     ballArray[i].display();
   }
-
   // for (let theBall of ballArray) {
   //   theBall.move();
   //   theBall.display();
   // }
 }
-
 class Ball {
   constructor(x, y, theImage) {
     this.radius = random(50, 70);
@@ -61,7 +53,6 @@ class Ball {
     this.theColor = color(random(255), random(255), random(255));
     this.theImage = theImage;
   }
-
   display() {
     // noStroke();
     // fill(this.theColor);
@@ -70,7 +61,6 @@ class Ball {
     image(this.theImage, this.x, this.y, this.radius * 2, this.radius * 2);
     // rect(this.x,this.y,this.radius,this.radius);
   }
-
   move() {
     this.x += this.dx;
     this.y += this.dy;
@@ -89,6 +79,4 @@ class Ball {
       return false;
     }
   }
-
-
 }

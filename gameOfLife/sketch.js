@@ -6,7 +6,6 @@ let cellWidth, cellHeight;
 let autoPlay = false;
 let gun;
 
-
 function preload(){
   gun = loadJSON("assets/gosper-gun.json"); //assumes gridsize is 60
 }
@@ -46,11 +45,9 @@ function keyPressed() {
 
 function nextTurn() {
   let newBoard = createEmpty2DArray(gridSize, gridSize);
-
   for (let y=0; y<gridSize; y++) {
     for (let x=0; x<gridSize; x++) {
       let neighbours = 0;
-
       //look at all neighbours and count them
       for (let i=-1; i<=1; i++) {
         for (let j=-1; j<=1; j++) {
@@ -59,10 +56,8 @@ function nextTurn() {
           }
         }
       }
-
       //don't count yourself
       neighbours -= grid[y][x];
-
       //apply rules of game
       if (grid[y][x] === 1) { //alive
         if (neighbours === 2 || neighbours === 3) {
@@ -72,7 +67,6 @@ function nextTurn() {
           newBoard[y][x] = 0;
         }
       }
-
       if (grid[y][x] === 0) { //dead
         if (neighbours === 3) {
           newBoard[y][x] = 1;
@@ -89,7 +83,6 @@ function nextTurn() {
 function mousePressed() {
   let cellX = Math.floor(mouseX/cellWidth);
   let cellY = Math.floor(mouseY/cellHeight);
-
   if (grid[cellY][cellX] === 0) {
     grid[cellY][cellX] = 1;
   }

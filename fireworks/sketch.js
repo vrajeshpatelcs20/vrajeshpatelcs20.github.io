@@ -27,8 +27,8 @@ function mousePressed() {
   let numberOfFireworks = 100;
   let theta = 0;
   for (let i = 0; i < numberOfFireworks; i++) {
-    let dx = cos(theta);
-    let dy = sin(theta);
+    let dx = cos(theta + random(-1, 10)) * random(0.75, 1.25);
+    let dy = sin(theta + random(-1, 10)) * random(0.75, 1.25);
 
     let myParticle = new Particle(mouseX, mouseY, dx, dy);
     fireworks.push(myParticle);
@@ -59,7 +59,7 @@ class Particle {
     circle(this.x, this.y, this.size);
   }
   move() {
-    this.aplha--;
+    this.aplha -= 0.5;
     this.theColor = color(this.R, this.G, this.B, this.aplha);
     this.x += this.dx;
     this.y += this.dy;

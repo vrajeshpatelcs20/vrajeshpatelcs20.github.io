@@ -6,10 +6,10 @@ let water, sand, grass, wall;
 
 
 function preload() {
-  grass = loadImage(assets / grass.jpg);
-  water = loadImage(assets / water.jpg);
-  sand = loadImage(assets / sand.jpg);
-  wall = loadImage(assets / wall.jpg);
+  grass = loadImage("assets/grass.jpg");
+  water = loadImage("assets/water.jpg");
+  sand = loadImage("assets/sand.jpg");
+  wall = loadImage("assets/wall.jpg");
 }
 
 

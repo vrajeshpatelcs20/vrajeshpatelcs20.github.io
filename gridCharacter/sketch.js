@@ -42,17 +42,7 @@ function keyPressed() {
     tryToMoveTo(playerX + 1, playerY);
   }
 }
-function tryToMoveTo(newX, newY) {
-  if (newX >= 0 && newY >= 0 && newX < gridSize && newY < gridSize) {
-    if (grid[newY][newX] === 0) {
-      // reset current player spot to 0/empty  
-      grid[playerY][playerX] = 0;
-      playerX = newX;
-      playerY = newY;
-      grid[playerY][playerX] = 9;
-    }
-  }
-}
+              
 function mousePressed() {
   let cellX = Math.floor(mouseX / cellWidth);
   let cellY = Math.floor(mouseY / cellHeight);

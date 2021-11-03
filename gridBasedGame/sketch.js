@@ -3,7 +3,9 @@
 let gridSize = 20;
 let grid;
 let water, sand, grass, wall;
-
+let playerX = 0;
+let playerY = 0;
+let previousBlock;
 
 function preload() {
   grass = loadImage("assets/grass.jpg");
@@ -11,41 +13,54 @@ function preload() {
   sand = loadImage("assets/sand.jpg");
   wall = loadImage("assets/wall.png");
 }
-
-
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  grid = createRandom2DArray(gridSize, gridSize);
+  grid = create2DArray(gridSize, gridSize);
+  grid[playerY][playerX] = 9;
+
 }
+// 0 = white
 function draw() {
   background(255);
   displayGrid();
 }
 
-// 0 = white
-function keyPressed() {
-  if (key === "e") {
-    grid = createEmpty2DArray(gridSize, gridSize);
+function keyPressed(){
+  if (key === "s") {
+    tryToMoveTo(playerX, playerY + 1);
   }
-  if (key === "b") {
-    grid = createEmpty2DArray(gridSize, gridSize, 1);
+  else if (key === "w") {
+    tryToMoveTo(playerX, playerY - 1);
   }
-  if (key === "r") {
-    grid = createRandom2DArray(gridSize, gridSize);
+  else if (key === "a") {
+    tryToMoveTo(playerX - 1, playerY);
   }
-
+  else if (key === "d") {
+    tryToMoveTo(playerX + 1, playerY);
+  }
 }
+
+
 function mousePressed() {
   let cellWidth = width / gridSize;
   let cellHeight = height / gridSize;
-
   let cellX = Math.floor(mouseX / cellWidth);
   let cellY = Math.floor(mouseY / cellHeight);
-
   swap(cellX, cellY);
+}
 
 
-
+function tryToMoveTo(newX, newY) {
+  previousBlock = grid[newX][newY];
+  grid[playerY][playerX] = previousBlock;
+  if (newX >= 0 && newY >= 0 && newX < gridSize && newY < gridSize) {
+    if (grid[newY][newX] === 0 || grid[newY][newX] === 1 || grid[newY][newX] === 2 || grid[newY][newX] === 3) {
+      // reset current player spot to 0/empty  
+      playerX = newX;
+      playerY = newY;
+      grid[playerY][playerX] = 9;
+    }
+  }
 }
 
 function swap(x, y) {
@@ -66,7 +81,6 @@ function swap(x, y) {
       grid[y][x] = 0;
       // stroke(random(255), random(255), random(255));
     }
-
   }
 }
 
@@ -91,25 +105,12 @@ function displayGrid() {
       // rect(x * cellWidth, y * cellHeight, cellWidth, cellHeight);
     }
   }
-  rect(0,0,cellWidth,cellHeight);
-  rect(width-cellWidth,height-cellHeight,cellWidth,cellHeight);
+  // rect(0,0,cellWidth,cellHeight);
+  rect(width - cellWidth, height - cellHeight, cellWidth, cellHeight);
   fill("green");
   noStroke();
-
 }
-function createEmpty2DArray(rows, cols, numToFill = 0) {
-  let grid = [];
-  for (let y = 0; y < rows; y++) {
-    grid.push([]);
-    for (let x = 0; x < cols; x++) {
-      grid[y].push(numToFill);
-    }
-  }
-
-
-
-  return grid;
-} function createRandom2DArray(rows, cols) {
+function create2DArray(rows, cols) {
   let grid = [];
   for (let y = 0; y < rows; y++) {
     grid.push([]);
@@ -119,3 +120,5 @@ function createEmpty2DArray(rows, cols, numToFill = 0) {
   }
   return grid;
 }
+
+

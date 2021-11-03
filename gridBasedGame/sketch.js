@@ -2,6 +2,15 @@
 
 let gridSize = 20;
 let grid;
+let water, sand, grass, wall;
+
+
+function preload() {
+  grass = loadImage(assets / grass.jpg);
+  water = loadImage(assets / water.jpg);
+  sand = loadImage(assets / sand.jpg);
+  wall = loadImage(assets / wall.jpg);
+}
 
 
 function setup() {
@@ -63,7 +72,7 @@ function displayGrid() {
       else if (grid[y][x] === 1) {
         fill("black");
       }
-      else if (grid[y][x]){
+      else if (grid[y][x]) {
         fill("red");
       }
       // noStroke();

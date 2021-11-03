@@ -9,7 +9,7 @@ function preload() {
   grass = loadImage("assets/grass.jpg");
   water = loadImage("assets/water.jpg");
   sand = loadImage("assets/sand.jpg");
-  wall = loadImage("assets/wall.jpg");
+  wall = loadImage("assets/wall.png");
 }
 
 
@@ -50,14 +50,23 @@ function mousePressed() {
 
 function swap(x, y) {
   if (x >= 0 && x < gridSize && y >= 0 && y < gridSize) {
-    if (grid[y][x] === 1) {
+    if (grid[y][x] === 0) {
+      grid[y][x] = 1;
+      // stroke(random(255), random(255), random(255));
+    }
+    else if (grid[y][x] === 1) {
+      grid[y][x] = 2;
+      // stroke(random(255), random(255), random(255));
+    }
+    else if (grid[y][x] === 2) {
       grid[y][x] = 3;
       // stroke(random(255), random(255), random(255));
     }
-    else if (grid[y][x] === 0) {
-      grid[y][x] = 3;
+    else if (grid[y][x] === 3) {
+      grid[y][x] = 0;
       // stroke(random(255), random(255), random(255));
     }
+
   }
 }
 
@@ -67,18 +76,26 @@ function displayGrid() {
   for (let y = 0; y < gridSize; y++) {
     for (let x = 0; x < gridSize; x++) {
       if (grid[y][x] === 0) {
-        fill("white");
+        image(water, x * cellWidth, y * cellHeight, cellWidth, cellHeight);
       }
       else if (grid[y][x] === 1) {
-        fill("black");
+        image(grass, x * cellWidth, y * cellHeight, cellWidth, cellHeight);
       }
-      else if (grid[y][x]) {
-        fill("red");
+      else if (grid[y][x] === 2) {
+        image(sand, x * cellWidth, y * cellHeight, cellWidth, cellHeight);
+      }
+      else if (grid[y][x] === 3) {
+        image(wall, x * cellWidth, y * cellHeight, cellWidth, cellHeight);
       }
       // noStroke();
-      rect(x * cellWidth, y * cellHeight, cellWidth, cellHeight);
+      // rect(x * cellWidth, y * cellHeight, cellWidth, cellHeight);
     }
   }
+  rect(0,0,cellWidth,cellHeight);
+  rect(width-cellWidth,height-cellHeight,cellWidth,cellHeight);
+  fill("green");
+  noStroke();
+
 }
 function createEmpty2DArray(rows, cols, numToFill = 0) {
   let grid = [];
@@ -97,12 +114,7 @@ function createEmpty2DArray(rows, cols, numToFill = 0) {
   for (let y = 0; y < rows; y++) {
     grid.push([]);
     for (let x = 0; x < cols; x++) {
-      if (random(100) < 50) {
-        grid[y].push(0);
-      }
-      else {
-        grid[y].push(1);
-      }
+      grid[y].push(0);
     }
   }
   return grid;

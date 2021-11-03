@@ -4,9 +4,9 @@ let gridSize = 20;
 let grid;
 let clickSound;
 
-function preload() {
-  clickSound = loadSound("assets/bruh.mp3");
-}
+// function preload() {
+//   clickSound = loadSound("assets/bruh.mp3");
+// }
 function setup() {
   createCanvas(windowWidth, windowHeight);
   grid = createRandom2DArray(gridSize, gridSize);
@@ -27,7 +27,7 @@ function keyPressed() {
   }
 }
 function mousePressed() {
-  clickSound.play();
+  // clickSound.play();
   let cellWidth = width / gridSize;
   let cellHeight = height / gridSize;
   let cellX = Math.floor(mouseX / cellWidth);

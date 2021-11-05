@@ -8,7 +8,8 @@ function setup() {
 function draw() {
   if (isRed) {
     background("red");
-  } else {
+  } 
+  else {
     background("black");
   }
 

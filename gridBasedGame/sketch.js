@@ -5,11 +5,10 @@ let grid;
 let water, sand, grass, wall, bot, end, level1, level2, level3, level4;
 let playerX = 0;
 let playerY = 0;
+let playerSpeed, lastTimeSwitched, terrainChecker;
 let previousBlock = 1;
 let blockNumber = 0;
 let stateOfGame = "starterScreen";
-
-
 
 function preload() {
   grass = loadImage("assets/grass.jpg");
@@ -22,46 +21,41 @@ function preload() {
   level2 = loadJSON("assets/level2.json");
   level3 = loadJSON("assets/level3.json");
   level4 = loadJSON("assets/level4.json");
-  
+
 }
 function setup() {
   createCanvas(windowWidth, windowHeight);
   // grid = create2DArray(gridSize, gridSize);
   stateOfGame = level2;
-  
   // grid[playerY][playerX] = 9;
-
 }
 // 0 = white
 function draw() {
   background(255);
   stateChecker();
-
 }
 
-function stateChecker(){
+function stateChecker() {
   // if (state === "starterScreen"){
-
   // }
-  if (stateOfGame === level1){
+  if (stateOfGame === level1) {
     grid = level1;
     displayGrid();
   }
-  if (stateOfGame === level2){
+  if (stateOfGame === level2) {
     grid = level2;
     displayGrid();
   }
-  if (stateOfGame === level3){
+  if (stateOfGame === level3) {
     grid = level3;
     displayGrid();
   }
-  if (stateOfGame === level4){
+  if (stateOfGame === level4) {
     grid = level4;
     displayGrid();
   }
   grid[playerY][playerX] = 9;
 }
-
 
 function keyPressed() {
   if (key === "s") {
@@ -90,7 +84,6 @@ function keyPressed() {
   }
 }
 
-
 function mousePressed() {
   let cellWidth = width / gridSize;
   let cellHeight = height / gridSize;
@@ -99,15 +92,26 @@ function mousePressed() {
   swap(cellX, cellY);
 }
 
-
 function tryToMoveTo(newX, newY) {
+  //  0 = water
+  //  1 = grass
+  //  2 = sand
   if (newX >= 0 && newY >= 0 && newX < gridSize && newY < gridSize) {
     if (grid[newY][newX] === 0 || grid[newY][newX] === 1 || grid[newY][newX] === 2 || grid[newY][newX] === 20) {
+
+
       // reset current player spot to 0/empty  
       grid[playerY][playerX] = previousBlock;
       previousBlock = grid[newY][newX];
-      playerX = newX;
-      playerY = newY;
+      terrainChecker = grid[newY][newX];
+      lastTimeSwitched = millis();
+      if (terrainChecker === 1){
+        if (millis() > 4000){
+          playerX = newX;
+          playerY = newY;
+        }
+      }
+
       grid[playerY][playerX] = 9;
     }
   }
@@ -143,6 +147,10 @@ function displayGrid() {
       rect(width - cellWidth, height - cellHeight, cellWidth, cellHeight);
       fill("white");
       noStroke();
+      //  0 = water
+      //  1 = grass
+      //  2 = sand
+
       if (grid[y][x] === 0) {
         image(water, x * cellWidth, y * cellHeight, cellWidth, cellHeight);
       }
@@ -166,7 +174,6 @@ function displayGrid() {
     }
   }
   // rect(0, 0, cellWidth, cellHeight);
-
 }
 function create2DArray(rows, cols) {
   let grid = [];
@@ -178,5 +185,3 @@ function create2DArray(rows, cols) {
   }
   return grid;
 }
-
-

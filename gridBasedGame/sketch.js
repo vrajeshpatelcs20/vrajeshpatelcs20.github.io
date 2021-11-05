@@ -2,12 +2,12 @@
 
 let gridSize = 20;
 let grid;
-let water, sand, grass, wall, bot;
+let water, sand, grass, wall, bot, end, level1, level2, level3, level4;
 let playerX = 0;
 let playerY = 0;
 let previousBlock = 1;
 let blockNumber = 0;
-let stateOfGame = starterScreen
+let stateOfGame = "starterScreen";
 
 
 
@@ -17,18 +17,51 @@ function preload() {
   sand = loadImage("assets/sand.jpg");
   wall = loadImage("assets/wall.png");
   bot = loadImage("assets/bot.png");
+  end = loadImage("assets/end.png");
+  level1 = loadJSON("assets/level1.json");
+  level2 = loadJSON("assets/level2.json");
+  level3 = loadJSON("assets/level3.json");
+  level4 = loadJSON("assets/level4.json");
+  
 }
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  grid = create2DArray(gridSize, gridSize);
-  grid[playerY][playerX] = 9;
+  // grid = create2DArray(gridSize, gridSize);
+  stateOfGame = level2;
+  
+  // grid[playerY][playerX] = 9;
 
 }
 // 0 = white
 function draw() {
   background(255);
-  displayGrid();
+  stateChecker();
+
 }
+
+function stateChecker(){
+  // if (state === "starterScreen"){
+
+  // }
+  if (stateOfGame === level1){
+    grid = level1;
+    displayGrid();
+  }
+  if (stateOfGame === level2){
+    grid = level2;
+    displayGrid();
+  }
+  if (stateOfGame === level3){
+    grid = level3;
+    displayGrid();
+  }
+  if (stateOfGame === level4){
+    grid = level4;
+    displayGrid();
+  }
+  grid[playerY][playerX] = 9;
+}
+
 
 function keyPressed() {
   if (key === "s") {
@@ -43,16 +76,16 @@ function keyPressed() {
   else if (key === "d") {
     tryToMoveTo(playerX + 1, playerY);
   }
-  if (key === "e"){
+  if (key === "e") {
     blockNumber = 0;
   }
-  if (key === "r"){
+  if (key === "r") {
     blockNumber = 2;
   }
-  if (key === "t"){
+  if (key === "t") {
     blockNumber = 3;
   }
-  if (key === "y"){
+  if (key === "y") {
     blockNumber = 1;
   }
 }
@@ -69,7 +102,7 @@ function mousePressed() {
 
 function tryToMoveTo(newX, newY) {
   if (newX >= 0 && newY >= 0 && newX < gridSize && newY < gridSize) {
-    if (grid[newY][newX] === 0 || grid[newY][newX] === 1 || grid[newY][newX] === 2) {
+    if (grid[newY][newX] === 0 || grid[newY][newX] === 1 || grid[newY][newX] === 2 || grid[newY][newX] === 20) {
       // reset current player spot to 0/empty  
       grid[playerY][playerX] = previousBlock;
       previousBlock = grid[newY][newX];
@@ -104,6 +137,7 @@ function swap(x, y) {
 function displayGrid() {
   let cellWidth = width / gridSize;
   let cellHeight = height / gridSize;
+  grid[gridSize - 1][gridSize - 1] = 20;
   for (let y = 0; y < gridSize; y++) {
     for (let x = 0; x < gridSize; x++) {
       rect(width - cellWidth, height - cellHeight, cellWidth, cellHeight);
@@ -124,12 +158,15 @@ function displayGrid() {
       if (grid[y][x] === 9) {
         image(bot, x * cellWidth, y * cellHeight, cellWidth, cellHeight);
       }
+      if (grid[y][x] === 20) {
+        image(end, x * cellWidth, y * cellHeight, cellWidth, cellHeight);
+      }
       // noStroke();
       // rect(x * cellWidth, y * cellHeight, cellWidth, cellHeight);
     }
   }
   // rect(0, 0, cellWidth, cellHeight);
-  
+
 }
 function create2DArray(rows, cols) {
   let grid = [];

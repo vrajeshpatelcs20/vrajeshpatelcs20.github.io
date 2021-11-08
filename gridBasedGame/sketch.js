@@ -106,7 +106,7 @@ function tryToMoveTo(newX, newY) {
       terrainChecker = grid[newY][newX];
       lastTimeSwitched = millis();
       if (terrainChecker === 1){
-        if (millis() > 4000){
+        if (millis() < lastTimeSwitched +  400){
           playerX = newX;
           playerY = newY;
         }

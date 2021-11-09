@@ -1,8 +1,10 @@
-// Grid Demo
+// Grid Based Game
+// Vrajesh Patel
+// Nov 8th 2021
 
 let gridSize = 20;
 let grid;
-let water, sand, grass, wall, bot, end, level1, level2, level3, level4;
+let water, sand, grass, wall, bot, end, level1, level2, level3, level4, levelSelect;
 let playerX = 0;
 let playerY = 0;
 let playerSpeed, terrainChecker;
@@ -11,6 +13,7 @@ let theTime = 200;
 let previousBlock = 1;
 let blockNumber = 0;
 let stateOfGame = "starterScreen";
+let winState;
 
 function preload() {
   grass = loadImage("assets/grass.jpg");
@@ -23,20 +26,23 @@ function preload() {
   level2 = loadJSON("assets/level2.json");
   level3 = loadJSON("assets/level3.json");
   level4 = loadJSON("assets/level4.json");
-
 }
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  stateOfGame = level2;
 }
+
 function draw() {
   background(255);
   stateChecker();
 }
-
+// check and displays what level your are on
 function stateChecker() {
-  // if (state === "starterScreen"){
-  // }
+  if (stateOfGame === "starterScreen") {
+    starterScreen();
+  }
+  else if (stateOfGame === levelSelect) {
+    levelSelector(width / 5, height / 2, 100, 60);
+  }
   if (stateOfGame === level1) {
     grid = level1;
     displayGrid();
@@ -53,10 +59,100 @@ function stateChecker() {
     grid = level4;
     displayGrid();
   }
-  grid[playerY][playerX] = 9;
+}
+
+// The Start Screen
+function starterScreen() {
+  background(0, 255, 255);
+  noStroke();
+  rectMode(CENTER);
+  rect(width / 2, height / 2, 400, 100);
+  textSize(100);
+  textAlign(CENTER);
+  text("Start", width / 2, height / 2 + 35);
+}
+// Select Level
+function levelSelector(width, height, widthOfBox, heightOfBox) {
+  background(0, 255, 255);
+  textSize(30);
+  textAlign(CENTER);
+  rect(width, height, widthOfBox, heightOfBox);
+  text("Level 1", width, height + 10);
+  rect(width * 2, height, widthOfBox, heightOfBox);
+  text("Level 2", width * 2, height + 10);
+  rect(width * 3, height, widthOfBox, heightOfBox);
+  text("Level 3", width * 3, height + 10);
+  rect(width * 4, height, widthOfBox, heightOfBox);
+  text("Level 4", width * 4, height + 10);
+  rectMode(CENTER);
+}
+
+function winner() {
+  background(255);
+  rect(width / 2, height / 2, 800, 100);
+  text("You Won Press R to go to Level Selector", width/2, height/2);
+  textSize(100);
+  textAlign(CENTER);
+}
+
+function mousePressed() {
+  if (stateOfGame === "starterScreen") {
+    if (mouseX >= width / 2 - 200 && mouseX <= width / 2 + 200 && mouseY >= height / 2 - 50 && mouseY <= height / 2 + 50) {
+      stateOfGame = levelSelect;
+    }
+  }
+
+  if (stateOfGame === levelSelect) {
+    if (mouseX >= width / 5 - 15 && mouseX <= width / 5 + 15 && mouseY >= height / 2 - 15 && mouseY <= height / 2 + 15) {
+      stateOfGame = level1;
+    }
+    if (mouseX >= width / 5 * 2 - 15 && mouseX <= width / 5 * 2 + 15 && mouseY >= height / 2 - 15 && mouseY <= height / 2 + 15) {
+      stateOfGame = level2;
+    }
+    if (mouseX >= width / 5 * 3 - 15 && mouseX <= width / 5 * 3 + 15 && mouseY >= height / 2 - 15 && mouseY <= height / 2 + 15) {
+      stateOfGame = level3;
+    }
+    if (mouseX >= width / 5 * 4 - 15 && mouseX <= width / 5 * 4 + 15 && mouseY >= height / 2 - 15 && mouseY <= height / 2 + 15) {
+      stateOfGame = level4;
+    }
+  }
 }
 
 function keyPressed() {
+  if (key === "s") {
+    if (millis() > lastTimeSwitched + theTime) {
+      tryToMoveTo(playerX, playerY + 1);
+      lastTimeSwitched = millis();
+    }
+  }
+  if (key === "w") {
+    if (millis() > lastTimeSwitched + theTime) {
+      tryToMoveTo(playerX, playerY - 1);
+      lastTimeSwitched = millis()
+    }
+  }
+  if (key === "a") {
+    if (millis() > lastTimeSwitched + theTime) {
+      tryToMoveTo(playerX - 1, playerY);
+      lastTimeSwitched = millis()
+    }
+  }
+  if (key === "d") {
+    if (millis() > lastTimeSwitched + theTime) {
+      tryToMoveTo(playerX + 1, playerY);
+      lastTimeSwitched = millis()
+    }
+  }
+  if (key === "r"){
+    stateOfGame = levelSelect;
+  }
+}
+
+//  Moves the player/robot
+function tryToMoveTo(newX, newY) {
+
+  // checker for the time delay needed
+  terrainChecker = grid[newY][newX];
   if (terrainChecker === 1) {
     theTime = 100
   }
@@ -66,51 +162,6 @@ function keyPressed() {
   else if (terrainChecker === 0) {
     theTime = 300
   }
-  if (millis() > lastTimeSwitched + theTime) {
-    if (key === "s") {
-        tryToMoveTo(playerX, playerY + 1);
-        lastTimeSwitched = millis();
-    }
-     if (key === "w") {
-        tryToMoveTo(playerX, playerY - 1);
-        lastTimeSwitched = millis()
-    }
-     if (key === "a") {
-        tryToMoveTo(playerX - 1, playerY);
-        lastTimeSwitched = millis()
-    }
-     if (key === "d") {
-        tryToMoveTo(playerX + 1, playerY);
-        lastTimeSwitched = millis()
-    }
-
-  }
-  if (key === "e") {
-    blockNumber = 0;
-  }
-  if (key === "r") {
-    blockNumber = 2;
-  }
-  if (key === "t") {
-    blockNumber = 3;
-  }
-  if (key === "y") {
-    blockNumber = 1;
-  }
-}
-
-function mousePressed() {
-  let cellWidth = width / gridSize;
-  let cellHeight = height / gridSize;
-  let cellX = Math.floor(mouseX / cellWidth);
-  let cellY = Math.floor(mouseY / cellHeight);
-  swap(cellX, cellY);
-}
-
-function tryToMoveTo(newX, newY) {
-  //  0 = water
-  //  1 = grass
-  //  2 = sand
   if (newX >= 0 && newY >= 0 && newX < gridSize && newY < gridSize) {
     if (grid[newY][newX] === 0 || grid[newY][newX] === 1 || grid[newY][newX] === 2 || grid[newY][newX] === 20) {
       // reset current player spot to 0/empty  
@@ -121,43 +172,15 @@ function tryToMoveTo(newX, newY) {
       grid[playerY][playerX] = 9;
     }
   }
-  terrainChecker = grid[playerY][playerX];
 }
-
-function swap(x, y) {
-  if (x >= 0 && x < gridSize && y >= 0 && y < gridSize) {
-    if (grid[y][x] === 0 || grid[y][x] === 1 || grid[y][x] === 2 || grid[y][x] === 3) {
-      grid[y][x] = blockNumber;
-      // stroke(random(255), random(255), random(255));
-    }
-    // else if (grid[y][x] === 1) {
-    //   grid[y][x] = 2;
-    //   // stroke(random(255), random(255), random(255));
-    // }
-    // else if (grid[y][x] === 2) {
-    //   grid[y][x] = 3;
-    //   // stroke(random(255), random(255), random(255));
-    // }
-    // else if (grid[y][x] === 3) {
-    //   grid[y][x] = 0;
-    //   // stroke(random(255), random(255), random(255));
-    // }
-  }
-}
-
+//  displays the images where they need to be displayed
 function displayGrid() {
   let cellWidth = width / gridSize;
   let cellHeight = height / gridSize;
+  grid[playerY][playerX] = 9;
   grid[gridSize - 1][gridSize - 1] = 20;
   for (let y = 0; y < gridSize; y++) {
     for (let x = 0; x < gridSize; x++) {
-      rect(width - cellWidth, height - cellHeight, cellWidth, cellHeight);
-      fill("white");
-      noStroke();
-      //  0 = water
-      //  1 = grass
-      //  2 = sand
-
       if (grid[y][x] === 0) {
         image(water, x * cellWidth, y * cellHeight, cellWidth, cellHeight);
       }
@@ -176,19 +199,10 @@ function displayGrid() {
       if (grid[y][x] === 20) {
         image(end, x * cellWidth, y * cellHeight, cellWidth, cellHeight);
       }
-      // noStroke();
-      // rect(x * cellWidth, y * cellHeight, cellWidth, cellHeight);
     }
   }
-  // rect(0, 0, cellWidth, cellHeight);
-}
-function create2DArray(rows, cols) {
-  let grid = [];
-  for (let y = 0; y < rows; y++) {
-    grid.push([]);
-    for (let x = 0; x < cols; x++) {
-      grid[y].push(1);
-    }
+  // checks for win
+  if(playerX === 19 && playerY === 19){
+    winner();
   }
-  return grid;
 }

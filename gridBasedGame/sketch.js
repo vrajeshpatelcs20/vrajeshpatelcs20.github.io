@@ -4,7 +4,8 @@
 
 let gridSize = 20;
 let grid;
-let water, sand, grass, wall, bot, end, level1, level2, level3, level4, levelSelect;
+let water, sand, grass, wall, bot, end, level1, level2, level3, level4, level5, level6, level7, level8;
+let levelSelect;
 let playerX = 0;
 let playerY = 0;
 let playerSpeed, terrainChecker, blank;
@@ -37,11 +38,14 @@ function draw() {
 }
 // check and displays what level your are on
 function stateChecker() {
+  if (stateOfGame === blank){
+    background(255);
+  }
   if (stateOfGame === "starterScreen") {
     starterScreen();
   }
   else if (stateOfGame === levelSelect) {
-    levelSelector(width / 5, height / 2, 100, 60);
+    levelSelector(width / 5, height / 3, 100, 60);
   }
   if (stateOfGame === level1) {
     grid = level1;
@@ -59,6 +63,22 @@ function stateChecker() {
     grid = level4;
     displayGrid();
   }
+  // if (stateOfGame === level5) {
+  //   grid = level5;
+  //   displayGrid();
+  // }
+  // if (stateOfGame === level6) {
+  //   grid = level6;
+  //   displayGrid();
+  // }
+  // if (stateOfGame === level7) {
+  //   grid = level7;
+  //   displayGrid();
+  // }
+  // if (stateOfGame === level8) {
+  //   grid = level8;
+  //   displayGrid();
+  // }
 }
 
 // The Start Screen
@@ -67,31 +87,53 @@ function starterScreen() {
   noStroke();
   rectMode(CENTER);
   rect(width / 2, height / 2, 400, 100);
-  textSize(100);
   textAlign(CENTER);
+  textSize(150);
+  text("Welcome To The Game", width / 2, 125);
+  textSize(100);
   text("Start", width / 2, height / 2 + 35);
-  text("Water = 1x Sand = 2X Grass = 3X", width / 2, height / 2 + 200);
+  text("Water = 1x        Sand = 2X        Grass = 3X", width / 2, height / 2 + 200);
+  textSize(45);
+  text("For Levels 1-4 Try To Get The Robot From The Top Left To The Bottom Right/Endzone", width / 2, height / 5 + 75);
+  text("For Levels 5-8 Try To Get All The Square To Be Black Levels 5-8 Will Be Much Harder", width / 2, height / 4 + 125);
+  textSize(30);
+  text("Made By Mad#49", width / 2, height - 40);
 }
 // Select Level
 function levelSelector(width, height, widthOfBox, heightOfBox) {
   background(0, 255, 255);
   textSize(30);
   textAlign(CENTER);
+
   rect(width, height, widthOfBox, heightOfBox);
   text("Level 1", width, height + 10);
+
   rect(width * 2, height, widthOfBox, heightOfBox);
   text("Level 2", width * 2, height + 10);
+
   rect(width * 3, height, widthOfBox, heightOfBox);
   text("Level 3", width * 3, height + 10);
+
   rect(width * 4, height, widthOfBox, heightOfBox);
   text("Level 4", width * 4, height + 10);
+
+  rect(width, height * 2, widthOfBox, heightOfBox);
+  text("Level 5", width, height * 2 + 10);
+
+  rect(width * 2, height * 2, widthOfBox, heightOfBox);
+  text("Level 6", width * 2, height * 2 + 10);
+
+  rect(width * 3, height * 2, widthOfBox, heightOfBox);
+  text("Level 7", width * 3, height * 2 + 10);
+
+  rect(width * 4, height * 2, widthOfBox, heightOfBox);
+  text("Level 8", width * 4, height * 2 + 10);
+
   rectMode(CENTER);
 }
 
 function winner() {
-  stateOfGame = blank;
   background(255);
-  rect(width / 2, height / 2, 800, 100);
   text("You Won Press R to go to Level Selector", width / 2, height / 2);
   textSize(80);
   textAlign(CENTER);
@@ -105,18 +147,30 @@ function mousePressed() {
   }
 
   if (stateOfGame === levelSelect) {
-    if (mouseX >= width / 5 - 15 && mouseX <= width / 5 + 15 && mouseY >= height / 2 - 15 && mouseY <= height / 2 + 15) {
+    if (mouseX >= width / 5 - 15 && mouseX <= width / 5 + 15 && mouseY >= height / 3 - 15 && mouseY <= height / 3 + 15) {
       stateOfGame = level1;
     }
-    if (mouseX >= width / 5 * 2 - 15 && mouseX <= width / 5 * 2 + 15 && mouseY >= height / 2 - 15 && mouseY <= height / 2 + 15) {
+    if (mouseX >= width / 5 * 2 - 15 && mouseX <= width / 5 * 2 + 15 && mouseY >= height / 3 - 15 && mouseY <= height / 3 + 15) {
       stateOfGame = level2;
     }
-    if (mouseX >= width / 5 * 3 - 15 && mouseX <= width / 5 * 3 + 15 && mouseY >= height / 2 - 15 && mouseY <= height / 2 + 15) {
+    if (mouseX >= width / 5 * 3 - 15 && mouseX <= width / 5 * 3 + 15 && mouseY >= height / 3 - 15 && mouseY <= height / 3 + 15) {
       stateOfGame = level3;
     }
-    if (mouseX >= width / 5 * 4 - 15 && mouseX <= width / 5 * 4 + 15 && mouseY >= height / 2 - 15 && mouseY <= height / 2 + 15) {
+    if (mouseX >= width / 5 * 4 - 15 && mouseX <= width / 5 * 4 + 15 && mouseY >= height / 3 - 15 && mouseY <= height / 3 + 15) {
       stateOfGame = level4;
     }
+    // if (mouseX >= width / 5 - 15 && mouseX <= width / 5 + 15 && mouseY >= height / 3 * 2 - 15 && mouseY <= height / 3 * 2 + 15) {
+    //   stateOfGame = level5;
+    // }
+    // if (mouseX >= width / 5 * 2 - 15 && mouseX <= width / 5 * 2 + 15 && mouseY >= height / 3 * 2 - 15 && mouseY <= height / 3 * 2 + 15) {
+    //   stateOfGame = level6;
+    // }
+    // if (mouseX >= width / 5 * 3 - 15 && mouseX <= width / 5 * 3 + 15 && mouseY >= height / 3 * 2 - 15 && mouseY <= height / 3 * 2 + 15) {
+    //   stateOfGame = level7;
+    // }
+    // if (mouseX >= width / 5 * 4 - 15 && mouseX <= width / 5 * 4 + 15 && mouseY >= height / 3 * 2 - 15 && mouseY <= height / 3 * 2 + 15) {
+    //   stateOfGame = level8;
+    // }
   }
 }
 
@@ -205,7 +259,7 @@ function displayGrid() {
   }
   // checks for win
   if (playerX === 19 && playerY === 19) {
-    winner();
     stateOfGame === blank;
+    winner();
   }
 }

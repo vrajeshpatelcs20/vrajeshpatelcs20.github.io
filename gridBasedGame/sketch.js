@@ -204,7 +204,7 @@ function displayGrid() {
     }
   }
   // checks for win
-  if(playerX === 19 && playerY === 19){
+  if (playerX === 19 && playerY === 19) {
     winner();
   }
 }

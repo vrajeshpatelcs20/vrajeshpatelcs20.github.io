@@ -7,7 +7,7 @@ let grid;
 let water, sand, grass, wall, bot, end, level1, level2, level3, level4, levelSelect;
 let playerX = 0;
 let playerY = 0;
-let playerSpeed, terrainChecker;
+let playerSpeed, terrainChecker, blank;
 let lastTimeSwitched = 0;
 let theTime = 200;
 let previousBlock = 1;
@@ -70,6 +70,7 @@ function starterScreen() {
   textSize(100);
   textAlign(CENTER);
   text("Start", width / 2, height / 2 + 35);
+  text("Water = 1x Sand = 2X Grass = 3X", width / 2, height / 2 + 200);
 }
 // Select Level
 function levelSelector(width, height, widthOfBox, heightOfBox) {
@@ -88,10 +89,11 @@ function levelSelector(width, height, widthOfBox, heightOfBox) {
 }
 
 function winner() {
+  stateOfGame = blank;
   background(255);
   rect(width / 2, height / 2, 800, 100);
-  text("You Won Press R to go to Level Selector", width/2, height/2);
-  textSize(100);
+  text("You Won Press R to go to Level Selector", width / 2, height / 2);
+  textSize(80);
   textAlign(CENTER);
 }
 
@@ -128,22 +130,22 @@ function keyPressed() {
   if (key === "w") {
     if (millis() > lastTimeSwitched + theTime) {
       tryToMoveTo(playerX, playerY - 1);
-      lastTimeSwitched = millis()
+      lastTimeSwitched = millis();
     }
   }
   if (key === "a") {
     if (millis() > lastTimeSwitched + theTime) {
       tryToMoveTo(playerX - 1, playerY);
-      lastTimeSwitched = millis()
+      lastTimeSwitched = millis();
     }
   }
   if (key === "d") {
     if (millis() > lastTimeSwitched + theTime) {
       tryToMoveTo(playerX + 1, playerY);
-      lastTimeSwitched = millis()
+      lastTimeSwitched = millis();
     }
   }
-  if (key === "r"){
+  if (key === "r") {
     stateOfGame = levelSelect;
   }
 }
@@ -154,13 +156,13 @@ function tryToMoveTo(newX, newY) {
   // checker for the time delay needed
   terrainChecker = grid[newY][newX];
   if (terrainChecker === 1) {
-    theTime = 100
+    theTime = 100;
   }
   else if (terrainChecker === 2) {
-    theTime = 200
+    theTime = 200;
   }
   else if (terrainChecker === 0) {
-    theTime = 300
+    theTime = 300;
   }
   if (newX >= 0 && newY >= 0 && newX < gridSize && newY < gridSize) {
     if (grid[newY][newX] === 0 || grid[newY][newX] === 1 || grid[newY][newX] === 2 || grid[newY][newX] === 20) {

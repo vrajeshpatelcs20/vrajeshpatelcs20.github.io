@@ -17,29 +17,30 @@ function preload() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  enterprise = new Ship(width / 2, height / 2, shipImage);
+  enterprise = new Ship(width / 2, height / 2, shipImage, speed, 60, 20);
 }
 
 function draw() {
   background(0);
   enterprise.update();
   enterprise.display();
+  enterprise.handleKeyPress();
 }
 
 function keyPressed() {
-  if(key === "w"){
+  if (key === "w") {
     enterprise.handleKeyPress("up");
   }
 
-  if(key === "s"){
+  if (key === "s") {
     enterprise.handleKeyPress("down");
   }
 
-  if(key === "d"){
+  if (key === "d") {
     enterprise.handleKeyPress("right");
   }
 
-  if(key === "a"){
+  if (key === "a") {
     enterprise.handleKeyPress("left");
   }
 }
@@ -48,13 +49,16 @@ function keyPressed() {
 // Start editing here!
 
 class Ship {
-  constructor(x, y, theImage, speed) {
+  constructor(x, y, theImage, speed, width, height) {
     // define the variables needed for this ship
     this.x = x;
     this.y = y;
+    this.theWidth = width;
+    this.theHeight = height;
     this.ship = theImage;
     this.dx = speed;
     this.dy = speed;
+    this.image = theImage;
 
   }
 
@@ -64,14 +68,13 @@ class Ship {
 
   display() {
     // show the ship
-    
+    image(this.image, this.x, this.y,this.theWidth, this.height);
   }
 
   handleKeyPress(direction) {
     if (direction === "up") { // up
       this.y -= this.dy;
     }
-
     if (direction === "down") { // down
       this.y += this.dx;
     }

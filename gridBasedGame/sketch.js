@@ -5,7 +5,9 @@ let grid;
 let water, sand, grass, wall, bot, end, level1, level2, level3, level4;
 let playerX = 0;
 let playerY = 0;
-let playerSpeed, lastTimeSwitched, terrainChecker;
+let playerSpeed, terrainChecker;
+let lastTimeSwitched = 0;
+let theTime = 200;
 let previousBlock = 1;
 let blockNumber = 0;
 let stateOfGame = "starterScreen";
@@ -25,11 +27,8 @@ function preload() {
 }
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  // grid = create2DArray(gridSize, gridSize);
   stateOfGame = level2;
-  // grid[playerY][playerX] = 9;
 }
-// 0 = white
 function draw() {
   background(255);
   stateChecker();
@@ -58,17 +57,33 @@ function stateChecker() {
 }
 
 function keyPressed() {
-  if (key === "s") {
-    tryToMoveTo(playerX, playerY + 1);
+  if (terrainChecker === 1) {
+    theTime = 100
   }
-  else if (key === "w") {
-    tryToMoveTo(playerX, playerY - 1);
+  else if (terrainChecker === 2) {
+    theTime = 200
   }
-  else if (key === "a") {
-    tryToMoveTo(playerX - 1, playerY);
+  else if (terrainChecker === 0) {
+    theTime = 300
   }
-  else if (key === "d") {
-    tryToMoveTo(playerX + 1, playerY);
+  if (millis() > lastTimeSwitched + theTime) {
+    if (key === "s") {
+        tryToMoveTo(playerX, playerY + 1);
+        lastTimeSwitched = millis();
+    }
+     if (key === "w") {
+        tryToMoveTo(playerX, playerY - 1);
+        lastTimeSwitched = millis()
+    }
+     if (key === "a") {
+        tryToMoveTo(playerX - 1, playerY);
+        lastTimeSwitched = millis()
+    }
+     if (key === "d") {
+        tryToMoveTo(playerX + 1, playerY);
+        lastTimeSwitched = millis()
+    }
+
   }
   if (key === "e") {
     blockNumber = 0;
@@ -98,23 +113,15 @@ function tryToMoveTo(newX, newY) {
   //  2 = sand
   if (newX >= 0 && newY >= 0 && newX < gridSize && newY < gridSize) {
     if (grid[newY][newX] === 0 || grid[newY][newX] === 1 || grid[newY][newX] === 2 || grid[newY][newX] === 20) {
-
-
       // reset current player spot to 0/empty  
       grid[playerY][playerX] = previousBlock;
       previousBlock = grid[newY][newX];
-      terrainChecker = grid[newY][newX];
-      lastTimeSwitched = millis();
-      if (terrainChecker === 1){
-        if (millis() < lastTimeSwitched +  400){
-          playerX = newX;
-          playerY = newY;
-        }
-      }
-
+      playerX = newX;
+      playerY = newY;
       grid[playerY][playerX] = 9;
     }
   }
+  terrainChecker = grid[playerY][playerX];
 }
 
 function swap(x, y) {

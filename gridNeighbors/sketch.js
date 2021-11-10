@@ -63,6 +63,7 @@ function displayGrid() {
         fill("black");
       }
       // noStroke();
+      
       rect(x * cellWidth, y * cellHeight, cellWidth, cellHeight);
     }
   }
@@ -81,7 +82,7 @@ function createEmpty2DArray(rows, cols, numToFill = 0) {
   for (let y = 0; y < rows; y++) {
     grid.push([]);
     for (let x = 0; x < cols; x++) {
-      if (random(100) < 50) {
+      if (random(100) < 75) {
         grid[y].push(0);
       }
       else {

@@ -9,12 +9,14 @@ let levelSelect;
 let playerX = 0;
 let playerY = 0;
 let playerSpeed, terrainChecker, blank;
+let counter;
 let lastTimeSwitched = 0;
 let theTime = 200;
 let previousBlock = 1;
 let blockNumber = 0;
 let stateOfGame = "starterScreen";
 let winState;
+let winStateForBoxes = false;
 
 function preload() {
   grass = loadImage("assets/grass.jpg");
@@ -27,6 +29,10 @@ function preload() {
   level2 = loadJSON("assets/level2.json");
   level3 = loadJSON("assets/level3.json");
   level4 = loadJSON("assets/level4.json");
+  level5 = loadJSON("assets/level5.json");
+  level6 = loadJSON("assets/level6.json");
+  level7 = loadJSON("assets/level7.json");
+  level8 = loadJSON("assets/level8.json");
 }
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -38,7 +44,7 @@ function draw() {
 }
 // check and displays what level your are on
 function stateChecker() {
-  if (stateOfGame === blank){
+  if (stateOfGame === blank) {
     background(255);
   }
   if (stateOfGame === "starterScreen") {
@@ -49,60 +55,62 @@ function stateChecker() {
   }
   if (stateOfGame === level1) {
     grid = level1;
-    displayGrid();
+    displayGridWorld();
   }
   if (stateOfGame === level2) {
     grid = level2;
-    displayGrid();
+    displayGridWorld();
   }
   if (stateOfGame === level3) {
     grid = level3;
-    displayGrid();
+    displayGridWorld();
   }
   if (stateOfGame === level4) {
     grid = level4;
-    displayGrid();
+    displayGridWorld();
   }
-  // if (stateOfGame === level5) {
-  //   grid = level5;
-  //   displayGrid();
-  // }
-  // if (stateOfGame === level6) {
-  //   grid = level6;
-  //   displayGrid();
-  // }
-  // if (stateOfGame === level7) {
-  //   grid = level7;
-  //   displayGrid();
-  // }
-  // if (stateOfGame === level8) {
-  //   grid = level8;
-  //   displayGrid();
-  // }
+  if (stateOfGame === level5) {
+    grid = level5;
+    displayGridBoxes();
+  }
+  if (stateOfGame === level6) {
+    grid = level6;
+    displayGridBoxes();
+  }
+  if (stateOfGame === level7) {
+    grid = level7;
+    displayGridBoxes();
+  }
+  if (stateOfGame === level8) {
+    grid = level8;
+    displayGridBoxes();
+  }
 }
 
-// The Start Screen
+// The Starting Screen
 function starterScreen() {
   background(0, 255, 255);
   noStroke();
   rectMode(CENTER);
   rect(width / 2, height / 2, 400, 100);
   textAlign(CENTER);
-  textSize(150);
+  textSize(width / 13);
   text("Welcome To The Game", width / 2, 125);
-  textSize(100);
+  textSize(width / 20);
   text("Start", width / 2, height / 2 + 35);
   text("Water = 1x        Sand = 2X        Grass = 3X", width / 2, height / 2 + 200);
-  textSize(45);
+  textSize(width / 40);
   text("For Levels 1-4 Try To Get The Robot From The Top Left To The Bottom Right/Endzone", width / 2, height / 5 + 75);
-  text("For Levels 5-8 Try To Get All The Square To Be Black Levels 5-8 Will Be Much Harder", width / 2, height / 4 + 125);
-  textSize(30);
+  text("For Levels 5-8 Try To Get All The Square To Be White Levels 5-8 Will Be Much Harder", width / 2, height / 4 + 125);
+  textSize(width / 60);
   text("Made By Mad#49", width / 2, height - 40);
 }
-// Select Level
+
+
+// Select Level Screen
 function levelSelector(width, height, widthOfBox, heightOfBox) {
   background(0, 255, 255);
-  textSize(30);
+  textSize(width / 15);
   textAlign(CENTER);
 
   rect(width, height, widthOfBox, heightOfBox);
@@ -131,14 +139,14 @@ function levelSelector(width, height, widthOfBox, heightOfBox) {
 
   rectMode(CENTER);
 }
-
+// The Winner Screen
 function winner() {
   background(255);
   text("You Won Press R to go to Level Selector", width / 2, height / 2);
-  textSize(80);
+  textSize(width / 20);
   textAlign(CENTER);
 }
-
+// Mouse Pressed and make sure when it should apply or in which level it should work
 function mousePressed() {
   if (stateOfGame === "starterScreen") {
     if (mouseX >= width / 2 - 200 && mouseX <= width / 2 + 200 && mouseY >= height / 2 - 50 && mouseY <= height / 2 + 50) {
@@ -159,21 +167,62 @@ function mousePressed() {
     if (mouseX >= width / 5 * 4 - 15 && mouseX <= width / 5 * 4 + 15 && mouseY >= height / 3 - 15 && mouseY <= height / 3 + 15) {
       stateOfGame = level4;
     }
-    // if (mouseX >= width / 5 - 15 && mouseX <= width / 5 + 15 && mouseY >= height / 3 * 2 - 15 && mouseY <= height / 3 * 2 + 15) {
-    //   stateOfGame = level5;
-    // }
-    // if (mouseX >= width / 5 * 2 - 15 && mouseX <= width / 5 * 2 + 15 && mouseY >= height / 3 * 2 - 15 && mouseY <= height / 3 * 2 + 15) {
-    //   stateOfGame = level6;
-    // }
-    // if (mouseX >= width / 5 * 3 - 15 && mouseX <= width / 5 * 3 + 15 && mouseY >= height / 3 * 2 - 15 && mouseY <= height / 3 * 2 + 15) {
-    //   stateOfGame = level7;
-    // }
-    // if (mouseX >= width / 5 * 4 - 15 && mouseX <= width / 5 * 4 + 15 && mouseY >= height / 3 * 2 - 15 && mouseY <= height / 3 * 2 + 15) {
-    //   stateOfGame = level8;
-    // }
+    if (mouseX >= width / 5 - 15 && mouseX <= width / 5 + 15 && mouseY >= height / 3 * 2 - 15 && mouseY <= height / 3 * 2 + 15) {
+      stateOfGame = level5;
+    }
+    if (mouseX >= width / 5 * 2 - 15 && mouseX <= width / 5 * 2 + 15 && mouseY >= height / 3 * 2 - 15 && mouseY <= height / 3 * 2 + 15) {
+      stateOfGame = level6;
+    }
+    if (mouseX >= width / 5 * 3 - 15 && mouseX <= width / 5 * 3 + 15 && mouseY >= height / 3 * 2 - 15 && mouseY <= height / 3 * 2 + 15) {
+      stateOfGame = level7;
+    }
+    if (mouseX >= width / 5 * 4 - 15 && mouseX <= width / 5 * 4 + 15 && mouseY >= height / 3 * 2 - 15 && mouseY <= height / 3 * 2 + 15) {
+      stateOfGame = level8;
+    }
   }
-}
+  if (stateOfGame === level5) {
+    let cellWidth = width / gridSize;
+    let cellHeight = height / gridSize;
+    let cellX = Math.floor(mouseX / cellWidth);
+    let cellY = Math.floor(mouseY / cellHeight);
 
+    swap(cellX, cellY);
+  }
+  if (stateOfGame === level6) {
+    let cellWidth = width / gridSize;
+    let cellHeight = height / gridSize;
+    let cellX = Math.floor(mouseX / cellWidth);
+    let cellY = Math.floor(mouseY / cellHeight);
+
+    swap(cellX, cellY);
+    swap(cellX + 1, cellY);
+    swap(cellX - 1, cellY);
+  }
+  if (stateOfGame === level7) {
+    let cellWidth = width / gridSize;
+    let cellHeight = height / gridSize;
+    let cellX = Math.floor(mouseX / cellWidth);
+    let cellY = Math.floor(mouseY / cellHeight);
+
+    swap(cellX, cellY);
+    swap(cellX, cellY + 1);
+    swap(cellX, cellY - 1);
+  }
+  if (stateOfGame === level8) {
+    let cellWidth = width / gridSize;
+    let cellHeight = height / gridSize;
+    let cellX = Math.floor(mouseX / cellWidth);
+    let cellY = Math.floor(mouseY / cellHeight);
+
+    swap(cellX, cellY);
+    swap(cellX + 1, cellY);
+    swap(cellX - 1, cellY);
+    swap(cellX, cellY + 1);
+    swap(cellX, cellY - 1);
+  }
+
+}
+// Key Pressed to find out which way the bot moves and to add the delay
 function keyPressed() {
   if (key === "s") {
     if (millis() > lastTimeSwitched + theTime) {
@@ -210,13 +259,13 @@ function tryToMoveTo(newX, newY) {
   // checker for the time delay needed
   terrainChecker = grid[newY][newX];
   if (terrainChecker === 1) {
-    theTime = 100;
-  }
-  else if (terrainChecker === 2) {
     theTime = 200;
   }
+  else if (terrainChecker === 2) {
+    theTime = 400;
+  }
   else if (terrainChecker === 0) {
-    theTime = 300;
+    theTime = 600;
   }
   if (newX >= 0 && newY >= 0 && newX < gridSize && newY < gridSize) {
     if (grid[newY][newX] === 0 || grid[newY][newX] === 1 || grid[newY][newX] === 2 || grid[newY][newX] === 20) {
@@ -229,8 +278,9 @@ function tryToMoveTo(newX, newY) {
     }
   }
 }
+
 //  displays the images where they need to be displayed
-function displayGrid() {
+function displayGridWorld() {
   let cellWidth = width / gridSize;
   let cellHeight = height / gridSize;
   grid[playerY][playerX] = 9;
@@ -261,5 +311,40 @@ function displayGrid() {
   if (playerX === 19 && playerY === 19) {
     stateOfGame === blank;
     winner();
+  }
+}
+// display the grid boxes
+function displayGridBoxes() {
+  counter = 0;
+  let cellWidth = width / gridSize;
+  let cellHeight = height / gridSize;
+  for (let y = 0; y < gridSize; y++) {
+    for (let x = 0; x < gridSize; x++) {
+      if (grid[y][x] === 0) {
+        fill("white");
+      }
+      else if (grid[y][x] === 1) {
+        counter++;
+        fill("black");
+      }
+      stroke(0);
+      rectMode(CORNER);
+      rect(x * cellWidth, y * cellHeight, cellWidth, cellHeight);
+    }
+  }
+  if (counter === 0) {
+    stateOfGame === blank;
+    winner();
+  }
+}
+// swaps black to white and vice versa
+function swap(x, y) {
+  if (x >= 0 && x < gridSize && y >= 0 && y < gridSize) {
+    if (grid[y][x] === 1) {
+      grid[y][x] = 0;
+    }
+    else if (grid[y][x] === 0) {
+      grid[y][x] = 1;
+    }
   }
 }

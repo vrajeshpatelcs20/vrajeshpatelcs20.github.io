@@ -33,7 +33,7 @@ function mousePressed() {
     let myParticle = new Particle(mouseX, mouseY, dx, dy);
     fireworks.push(myParticle);
 
-    theta += (360 / numberOfFireworks);
+    theta += 360 / numberOfFireworks;
 
 
   }

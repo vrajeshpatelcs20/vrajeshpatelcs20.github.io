@@ -33,12 +33,13 @@ class Particle {
     this.y = y;
     this.theColor = "red";
     this.radius = 4;
-    this.dx = random(-10, 10);
-    this.dy = random(-10, 10);
+    this.dx = random(-3, 3);
+    this.dy = random(-3, 3);
   }
   display() {
     circle(this.x, this.y, this.radius * 2);
     fill(this.theColor);
+    noStroke();
   }
   update() {
     this.x += this.dx;

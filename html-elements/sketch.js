@@ -7,9 +7,13 @@
 
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  let canvas = createCanvas(300, 300);
+  canvas.position(100, 400);
+
+  let someText = createP("some HTML string");
 }
 
 function draw() {
-  background(255,0,255);
+  background(0);
+  circle(mouseX, mouseY, 100);
 }

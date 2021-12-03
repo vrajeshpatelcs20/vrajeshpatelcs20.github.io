@@ -4,7 +4,7 @@ let gridSize = 5;
 let grid;
 let clickSound;
 
-function preload(){
+function preload() {
   clickSound = loadSound("assets/bruh.mp3");
 }
 

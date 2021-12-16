@@ -2,8 +2,7 @@
 
 let fish, octopus;
 let pufferfishImg, octopusImg;
-let numberOfRects;
-let rectHeights = [];
+let theCreatures = [];
 
 function preload() {
   pufferfishImg = loadImage("assets/fish.png");
@@ -12,19 +11,26 @@ function preload() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  numberOfRects = width;
-  fish = new Pufferfish(random(width), random(height), 50, pufferfishImg);
-  octopus = new Octopus(100,200,100,octopusImg);
+
+  for (let i = 0; i < 50; i++) {
+    if (random(100) < 30) {
+      let octopus = new Octopus(random(width), random(height), 50, octopusImg);
+      theCreatures.push(octopus);
+    }
+    else {
+      let fish = new Pufferfish(random(width), random(height), 50, pufferfishImg);
+      theCreatures.push(fish);
+    }
+  }
 
 }
 
 function draw() {
   background(255);
-  fish.update();
-  fish.generateTerrain();
-  fish.display();
-  octopus.update();
-  octopus.display();
+  for (let someCreature of theCreatures) {
+    someCreature.update();
+    someCreature.display();
+  }
 }
 
 class Creature {
@@ -35,6 +41,11 @@ class Creature {
   }
   update() {
     this.x += 4;
+    this.y += sin(this.x / 200);
+
+    if (this.x > width) {
+      this.x = 0;
+    }
   }
   display() {
     fill("green");
@@ -58,14 +69,7 @@ class Pufferfish extends Creature {
       this.x = 0;
     }
   }
-  generateTerrain() {
-    let time = 0;
-    for (let i = 0; i < numberOfRects; i++) {
-      let theHeight = noise(time) * height;
-      rectHeights.push(theHeight);
-      time += 0.001;
-    }
-  }
+
   display() {
     image(this.myImage, this.x, this.y, this.size, this.size);
   }

@@ -103,7 +103,7 @@ function starterScreen() {
   text("For Levels 1-4 Try To Get The Robot From The Top Left To The Bottom Right/Endzone", width / 2, height / 5 + 75);
   text("For Levels 5-8 Try To Get All The Square To Be White Levels 5-8 Will Be Much Harder", width / 2, height / 4 + 125);
   textSize(width / 60);
-  text("Made By Mad#49", width / 2, height - 40);
+  // text("Made By Mad#49", width / 2, height - 40);
 }
 
 

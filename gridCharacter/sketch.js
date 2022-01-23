@@ -6,6 +6,10 @@ let cellWidth, cellHeight;
 let level1;
 let playerX = 0;
 let playerY = 0;
+let previousBlock;
+
+
+
 function preload() {
   level1 = loadJSON("assets/level1.json"); //assumes gridsize = 20
 }
@@ -42,7 +46,21 @@ function keyPressed() {
     tryToMoveTo(playerX + 1, playerY);
   }
 }
-              
+
+function tryToMoveTo(newX, newY) {
+
+
+  if (newX >= 0 && newY >= 0 && newX < gridSize && newY < gridSize) {
+    // reset current player spot to 0/empty  
+    grid[playerY][playerX] = previousBlock;
+    previousBlock = grid[newY][newX];
+    playerX = newX;
+    playerY = newY;
+    grid[playerY][playerX] = 9;
+  }
+
+}
+
 function mousePressed() {
   let cellX = Math.floor(mouseX / cellWidth);
   let cellY = Math.floor(mouseY / cellHeight);

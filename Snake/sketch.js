@@ -126,6 +126,7 @@ function keyPressed() {
     backB = random(255);
     backG = random(255);
   }
+  break;
 }
 // color changer
 function changeColorOfObjectSpecified() {

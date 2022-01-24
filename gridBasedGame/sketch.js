@@ -14,7 +14,7 @@ let lastTimeSwitched = 0;
 let theTime = 200;
 let previousBlock = 1;
 let blockNumber = 0;
-let stateOfGame = "starterScreen";
+let stateOfGridGame = "starterScreen";
 let winState;
 let winStateForBoxes = false;
 
@@ -40,48 +40,48 @@ function setup() {
 
 function draw() {
   background(255);
-  stateChecker();
+  stateCheckerForGridGame();
 }
 // check and displays what level your are on
-function stateChecker() {
-  if (stateOfGame === blank) {
+function stateCheckerForGridGame() {
+  if (stateOfGridGame === blank) {
     background(255);
   }
-  if (stateOfGame === "starterScreen") {
+  if (stateOfGridGame === "starterScreen") {
     starterScreen();
   }
-  else if (stateOfGame === levelSelect) {
+  else if (stateOfGridGame === levelSelect) {
     levelSelector(width / 5, height / 3, 100, 60);
   }
-  if (stateOfGame === level1) {
+  if (stateOfGridGame === level1) {
     grid = level1;
     displayGridWorld();
   }
-  if (stateOfGame === level2) {
+  if (stateOfGridGame === level2) {
     grid = level2;
     displayGridWorld();
   }
-  if (stateOfGame === level3) {
+  if (stateOfGridGame === level3) {
     grid = level3;
     displayGridWorld();
   }
-  if (stateOfGame === level4) {
+  if (stateOfGridGame === level4) {
     grid = level4;
     displayGridWorld();
   }
-  if (stateOfGame === level5) {
+  if (stateOfGridGame === level5) {
     grid = level5;
     displayGridBoxes();
   }
-  if (stateOfGame === level6) {
+  if (stateOfGridGame === level6) {
     grid = level6;
     displayGridBoxes();
   }
-  if (stateOfGame === level7) {
+  if (stateOfGridGame === level7) {
     grid = level7;
     displayGridBoxes();
   }
-  if (stateOfGame === level8) {
+  if (stateOfGridGame === level8) {
     grid = level8;
     displayGridBoxes();
   }
@@ -148,39 +148,39 @@ function winner() {
 }
 // Mouse Pressed and make sure when it should apply or in which level it should work
 function mousePressed() {
-  if (stateOfGame === "starterScreen") {
+  if (stateOfGridGame === "starterScreen") {
     if (mouseX >= width / 2 - 200 && mouseX <= width / 2 + 200 && mouseY >= height / 2 - 50 && mouseY <= height / 2 + 50) {
-      stateOfGame = levelSelect;
+      stateOfGridGame = levelSelect;
     }
   }
 
-  if (stateOfGame === levelSelect) {
+  if (stateOfGridGame === levelSelect) {
     if (mouseX >= width / 5 - 15 && mouseX <= width / 5 + 15 && mouseY >= height / 3 - 15 && mouseY <= height / 3 + 15) {
-      stateOfGame = level1;
+      stateOfGridGame = level1;
     }
     if (mouseX >= width / 5 * 2 - 15 && mouseX <= width / 5 * 2 + 15 && mouseY >= height / 3 - 15 && mouseY <= height / 3 + 15) {
-      stateOfGame = level2;
+      stateOfGridGame = level2;
     }
     if (mouseX >= width / 5 * 3 - 15 && mouseX <= width / 5 * 3 + 15 && mouseY >= height / 3 - 15 && mouseY <= height / 3 + 15) {
-      stateOfGame = level3;
+      stateOfGridGame = level3;
     }
     if (mouseX >= width / 5 * 4 - 15 && mouseX <= width / 5 * 4 + 15 && mouseY >= height / 3 - 15 && mouseY <= height / 3 + 15) {
-      stateOfGame = level4;
+      stateOfGridGame = level4;
     }
     if (mouseX >= width / 5 - 15 && mouseX <= width / 5 + 15 && mouseY >= height / 3 * 2 - 15 && mouseY <= height / 3 * 2 + 15) {
-      stateOfGame = level5;
+      stateOfGridGame = level5;
     }
     if (mouseX >= width / 5 * 2 - 15 && mouseX <= width / 5 * 2 + 15 && mouseY >= height / 3 * 2 - 15 && mouseY <= height / 3 * 2 + 15) {
-      stateOfGame = level6;
+      stateOfGridGame = level6;
     }
     if (mouseX >= width / 5 * 3 - 15 && mouseX <= width / 5 * 3 + 15 && mouseY >= height / 3 * 2 - 15 && mouseY <= height / 3 * 2 + 15) {
-      stateOfGame = level7;
+      stateOfGridGame = level7;
     }
     if (mouseX >= width / 5 * 4 - 15 && mouseX <= width / 5 * 4 + 15 && mouseY >= height / 3 * 2 - 15 && mouseY <= height / 3 * 2 + 15) {
-      stateOfGame = level8;
+      stateOfGridGame = level8;
     }
   }
-  if (stateOfGame === level5) {
+  if (stateOfGridGame === level5) {
     let cellWidth = width / gridSize;
     let cellHeight = height / gridSize;
     let cellX = Math.floor(mouseX / cellWidth);
@@ -188,7 +188,7 @@ function mousePressed() {
 
     swap(cellX, cellY);
   }
-  if (stateOfGame === level6) {
+  if (stateOfGridGame === level6) {
     let cellWidth = width / gridSize;
     let cellHeight = height / gridSize;
     let cellX = Math.floor(mouseX / cellWidth);
@@ -198,7 +198,7 @@ function mousePressed() {
     swap(cellX + 1, cellY);
     swap(cellX - 1, cellY);
   }
-  if (stateOfGame === level7) {
+  if (stateOfGridGame === level7) {
     let cellWidth = width / gridSize;
     let cellHeight = height / gridSize;
     let cellX = Math.floor(mouseX / cellWidth);
@@ -208,7 +208,7 @@ function mousePressed() {
     swap(cellX, cellY + 1);
     swap(cellX, cellY - 1);
   }
-  if (stateOfGame === level8) {
+  if (stateOfGridGame === level8) {
     let cellWidth = width / gridSize;
     let cellHeight = height / gridSize;
     let cellX = Math.floor(mouseX / cellWidth);
@@ -249,7 +249,7 @@ function keyPressed() {
     }
   }
   if (key === "r") {
-    stateOfGame = levelSelect;
+    stateOfGridGame = levelSelect;
   }
 }
 
@@ -309,7 +309,7 @@ function displayGridWorld() {
   }
   // checks for win
   if (playerX === 19 && playerY === 19) {
-    stateOfGame === blank;
+    stateOfGridGame === blank;
     winner();
   }
 }
@@ -333,7 +333,7 @@ function displayGridBoxes() {
     }
   }
   if (counter === 0) {
-    stateOfGame === blank;
+    stateOfGridGame === blank;
     winner();
   }
 }

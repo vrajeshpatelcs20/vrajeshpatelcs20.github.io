@@ -2,7 +2,7 @@
 // Vrajesh Patel
 // Nov 8th 2021
 
-let gridSize = 20;
+let gridSizeForGridBasedGame = 20;
 let grid;
 let water, sand, grass, wall, bot, end, level1, level2, level3, level4, level5, level6, level7, level8;
 let levelSelect;
@@ -14,7 +14,7 @@ let lastTimeSwitched = 0;
 let theTime = 200;
 let previousBlock = 1;
 let blockNumber = 0;
-let stateOfGridGame = "starterScreen";
+let stateOfGridGame = "starterScreenForGridGame";
 let winState;
 let winStateForBoxes = false;
 
@@ -47,8 +47,8 @@ function stateCheckerForGridGame() {
   if (stateOfGridGame === blank) {
     background(255);
   }
-  if (stateOfGridGame === "starterScreen") {
-    starterScreen();
+  if (stateOfGridGame === "starterScreenForGridGame") {
+    starterScreenForGridGame();
   }
   else if (stateOfGridGame === levelSelect) {
     levelSelector(width / 5, height / 3, 100, 60);
@@ -88,7 +88,7 @@ function stateCheckerForGridGame() {
 }
 
 // The Starting Screen
-function starterScreen() {
+function starterScreenForGridGame() {
   background(0, 255, 255);
   noStroke();
   rectMode(CENTER);
@@ -148,7 +148,7 @@ function winner() {
 }
 // Mouse Pressed and make sure when it should apply or in which level it should work
 function mousePressed() {
-  if (stateOfGridGame === "starterScreen") {
+  if (stateOfGridGame === "starterScreenForGridGame") {
     if (mouseX >= width / 2 - 200 && mouseX <= width / 2 + 200 && mouseY >= height / 2 - 50 && mouseY <= height / 2 + 50) {
       stateOfGridGame = levelSelect;
     }
@@ -181,16 +181,16 @@ function mousePressed() {
     }
   }
   if (stateOfGridGame === level5) {
-    let cellWidth = width / gridSize;
-    let cellHeight = height / gridSize;
+    let cellWidth = width / gridSizeForGridBasedGame;
+    let cellHeight = height / gridSizeForGridBasedGame;
     let cellX = Math.floor(mouseX / cellWidth);
     let cellY = Math.floor(mouseY / cellHeight);
 
     swap(cellX, cellY);
   }
   if (stateOfGridGame === level6) {
-    let cellWidth = width / gridSize;
-    let cellHeight = height / gridSize;
+    let cellWidth = width / gridSizeForGridBasedGame;
+    let cellHeight = height / gridSizeForGridBasedGame;
     let cellX = Math.floor(mouseX / cellWidth);
     let cellY = Math.floor(mouseY / cellHeight);
 
@@ -199,8 +199,8 @@ function mousePressed() {
     swap(cellX - 1, cellY);
   }
   if (stateOfGridGame === level7) {
-    let cellWidth = width / gridSize;
-    let cellHeight = height / gridSize;
+    let cellWidth = width / gridSizeForGridBasedGame;
+    let cellHeight = height / gridSizeForGridBasedGame;
     let cellX = Math.floor(mouseX / cellWidth);
     let cellY = Math.floor(mouseY / cellHeight);
 
@@ -209,8 +209,8 @@ function mousePressed() {
     swap(cellX, cellY - 1);
   }
   if (stateOfGridGame === level8) {
-    let cellWidth = width / gridSize;
-    let cellHeight = height / gridSize;
+    let cellWidth = width / gridSizeForGridBasedGame;
+    let cellHeight = height / gridSizeForGridBasedGame;
     let cellX = Math.floor(mouseX / cellWidth);
     let cellY = Math.floor(mouseY / cellHeight);
 
@@ -267,7 +267,7 @@ function tryToMoveTo(newX, newY) {
   else if (terrainChecker === 0) {
     theTime = 600;
   }
-  if (newX >= 0 && newY >= 0 && newX < gridSize && newY < gridSize) {
+  if (newX >= 0 && newY >= 0 && newX < gridSizeForGridBasedGame && newY < gridSizeForGridBasedGame) {
     if (grid[newY][newX] === 0 || grid[newY][newX] === 1 || grid[newY][newX] === 2 || grid[newY][newX] === 20) {
       // reset current player spot to 0/empty  
       grid[playerY][playerX] = previousBlock;
@@ -281,12 +281,12 @@ function tryToMoveTo(newX, newY) {
 
 //  displays the images where they need to be displayed
 function displayGridWorld() {
-  let cellWidth = width / gridSize;
-  let cellHeight = height / gridSize;
+  let cellWidth = width / gridSizeForGridBasedGame;
+  let cellHeight = height / gridSizeForGridBasedGame;
   grid[playerY][playerX] = 9;
-  grid[gridSize - 1][gridSize - 1] = 20;
-  for (let y = 0; y < gridSize; y++) {
-    for (let x = 0; x < gridSize; x++) {
+  grid[gridSizeForGridBasedGame - 1][gridSizeForGridBasedGame - 1] = 20;
+  for (let y = 0; y < gridSizeForGridBasedGame; y++) {
+    for (let x = 0; x < gridSizeForGridBasedGame; x++) {
       if (grid[y][x] === 0) {
         image(water, x * cellWidth, y * cellHeight, cellWidth, cellHeight);
       }
@@ -316,10 +316,10 @@ function displayGridWorld() {
 // display the grid boxes
 function displayGridBoxes() {
   counter = 0;
-  let cellWidth = width / gridSize;
-  let cellHeight = height / gridSize;
-  for (let y = 0; y < gridSize; y++) {
-    for (let x = 0; x < gridSize; x++) {
+  let cellWidth = width / gridSizeForGridBasedGame;
+  let cellHeight = height / gridSizeForGridBasedGame;
+  for (let y = 0; y < gridSizeForGridBasedGame; y++) {
+    for (let x = 0; x < gridSizeForGridBasedGame; x++) {
       if (grid[y][x] === 0) {
         fill("white");
       }
@@ -339,7 +339,7 @@ function displayGridBoxes() {
 }
 // swaps black to white and vice versa
 function swap(x, y) {
-  if (x >= 0 && x < gridSize && y >= 0 && y < gridSize) {
+  if (x >= 0 && x < gridSizeForGridBasedGame && y >= 0 && y < gridSizeForGridBasedGame) {
     if (grid[y][x] === 1) {
       grid[y][x] = 0;
     }

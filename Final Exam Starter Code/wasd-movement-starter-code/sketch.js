@@ -9,6 +9,9 @@
 //    when WASD is pressed.
 
 let mascot;
+let speed = 20;
+let x;
+let y;
 
 function preload() {
   mascot = loadImage("assets/raptors-l.png");
@@ -16,10 +19,28 @@ function preload() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  x = width / 2;
+  y = height / 2;
+
 }
 
 function draw() {
   background(255);
   imageMode(CENTER);
-  image(mascot, width/2, height/2);
+  image(mascot, x, y);
+}
+
+function keyPressed() {
+  if (key === "w") {
+    y = y - speed;
+  }
+  if (key === "s") {
+    y = y + speed;
+  }
+  if (key === "a") {
+    x = x - speed;
+  }
+  if (key === "d") {
+    x = x + speed;
+  }
 }

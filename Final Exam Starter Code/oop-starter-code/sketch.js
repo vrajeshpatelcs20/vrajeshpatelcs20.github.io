@@ -12,21 +12,36 @@
 //    Note that more than one Ball might be removed with a single click
 //    (if they are overlapping).
 
-
+let ballArray = [];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-
+  // make 100 ball classes
+  for (let i = 0; i < 100; i++) {
+    let oneBall = new Ball(random(0, width), random(0, height));
+    ballArray.push(oneBall);
+  }
 }
 
 function draw() {
   background("black");
-
+  // go through the array
+  for (let i = 0; i < ballArray.length; i++) {
+    // show and move the ball
+    ballArray[i].display();
+    ballArray[i].move();
+  }
 
 }
 
 function mousePressed() {
-
+  // check if mouse was on ball
+  for (let i = ballArray.length - 1; i > 0; i--) {
+    if (ballArray[i].checkIfPointInsideBall(mouseX, mouseY)) {
+      // remove that ball
+      ballArray.splice(i, 1);
+    }
+  }
 }
 
 ////////////////////////////////////////////////////////////
@@ -48,7 +63,7 @@ class Ball {
   display() {
     noStroke();
     fill(this.theColor);
-    circle(this.x, this.y, this.radius*2);
+    circle(this.x, this.y, this.radius * 2);
   }
 
   move() {
